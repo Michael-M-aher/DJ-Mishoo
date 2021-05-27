@@ -3659,3 +3659,5 @@ add problems 8 : 2021-05-27
 add problems 8 : 2021-08-19
 add problems 7 : 2021-05-27
 add problems 7 : 2021-08-19
+add problems 6 : 2021-05-27
+add problems 6 : 2021-08-19
