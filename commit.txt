@@ -3702,3 +3702,5 @@ add problems 9 : 2021-08-17
 add problems 15 : 2021-05-25
 add problems 8 : 2021-08-17
 add problems 14 : 2021-05-25
+add problems 7 : 2021-08-17
+add problems 13 : 2021-05-25
