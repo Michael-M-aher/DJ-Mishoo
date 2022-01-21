@@ -414,3 +414,4 @@ add problems 10 : 2022-01-21
 add problems 9 : 2022-01-21
 add problems 8 : 2022-01-21
 add problems 7 : 2022-01-21
+add problems 6 : 2022-01-21
