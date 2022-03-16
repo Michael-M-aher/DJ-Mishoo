@@ -1,0 +1,14 @@
+{
+    "website" : {
+      "support": "https://discord.gg/milrato",
+      "domain": "https://dj-mishoo.herokuapp.com"
+    },
+    "config": {
+        "http": {
+          "port": 80
+        },
+        "callback": "https://dj-mishoo.herokuapp.com/callback",
+        "clientID": "891671130291732482",
+        "secret": "CX52v5t9CqVsg1NftPy5YAFNsHBWNw_b"
+    }
+  }

@@ -1,0 +1,12 @@
+{
+  "token": "Discord-Bot-Token-goes-here!",
+  "prefix": "-",
+  "ksoftapi": "NEEDED_FOR_LYRICS",
+  "youtubeCookie": "",
+  "spotify_api": {
+        "enabled": true, "_COMMENT_": "Set it to false, if you want to scrape, when on true you can get spotify playlists with 100+ Tracks",
+	  "clientSecret": "1731c37ef9c2467a95a41cc062479aaf",
+        "clientId": "5b45dfcf514c4b7a89f08a1f2235d184"
+  },
+  "loadSlashsGlobal": true, "_COMMENT_": "Set it to true, when your Slash Commands are ready, false loads instant true loads slow but stable! (GLOBAL/GUILD COMMANDS, DISCORD DOCS!)"
+}
