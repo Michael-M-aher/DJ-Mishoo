@@ -48,16 +48,13 @@ if(config.spotify_api.enabled){
 }
 client.distube = new DisTube(client, {
   emitNewSongOnly: false,
-  leaveOnEmpty: true,
-  leaveOnFinish: false,
-  leaveOnStop: false,
+  emptyCooldown: 120,
   savePreviousSongs: true,
   emitAddSongWhenCreatingQueue: false,
   //emitAddListWhenCreatingQueue: false,
   searchSongs: 0,
   youtubeCookie: config.youtubeCookie,     //Comment this line if you dont want to use a youtube Cookie 
   nsfw: true, //Set it to false if u want to disable nsfw songs
-  emptyCooldown: 60,
   ytdlOptions: {
     //requestOptions: {
     //  agent //ONLY USE ONE IF YOU KNOW WHAT YOU DO!
