@@ -14,10 +14,15 @@ module.exports = async (client, message) => {
   client.settings.ensure(message.guild.id, {
     prefix: config.prefix,
     defaultvolume: 100,
+    autoresume: true,
     defaultautoplay: false,
     defaultfilters: [`clear`],
     djroles: [],
-    botchannel: []
+    botchannel: [],
+    music: {
+      channel: ``,
+      message: ``,
+    }
   })
   let prefix = client.settings.get(message.guild.id, `prefix`)
   const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(prefix)})`);
@@ -36,6 +41,8 @@ module.exports = async (client, message) => {
   let command = client.commands.get(cmd);
   if (!command) command = client.commands.get(client.aliases.get(cmd));
   if (command) {
+    if(client.settings.get(message.guild.id, "music.channels") === message.channel.id) 
+    return message.reply(`${client.allEmojis.x} **Please use a Command Somewhere else!**`).then(msg=>{setTimeout(()=>{try{msg.delete().catch(() => {});}catch(e){ }}, 3000)}).catch(() => {});
     let botchannels = client.settings.get(message.guild.id, `botchannel`);
     if (!botchannels || !Array.isArray(botchannels)) botchannels = [];
     if (botchannels.length > 0) {
