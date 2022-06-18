@@ -1674,7 +1674,7 @@ module.exports = (client) => {
           emoji: Emojis[index]
         }
       }))
-    var stopbutton = new MessageButton().setStyle('DANGER').setCustomId('Stop').setEmoji(`🏠`).setLabel(`Stop`).setDisabled()
+    var stopbutton = new MessageButton().setStyle('DANGER').setCustomId('Stop').setEmoji(`⏹`).setLabel(`Stop`).setDisabled()
     var skipbutton = new MessageButton().setStyle('PRIMARY').setCustomId('Skip').setEmoji(`⏭`).setLabel(`Skip`).setDisabled();
     var shufflebutton = new MessageButton().setStyle('PRIMARY').setCustomId('Shuffle').setEmoji('🔀').setLabel(`Shuffle`).setDisabled();
     var pausebutton = new MessageButton().setStyle('SECONDARY').setCustomId('Pause').setEmoji('⏸').setLabel(`Pause`).setDisabled();
@@ -1804,7 +1804,7 @@ module.exports = (client) => {
       forward = forward.setDisabled(false)
     }
     const row = new MessageActionRow().addComponents([skip, stop, pause, autoplay, shuffle]);
-    const row2 = new MessageActionRow().addComponents([songloop, queueloop, forward, rewind, lyrics]);
+    const row2 = new MessageActionRow().addComponents([songloop, queueloop, rewind, forward, lyrics]);
     return {
       embeds: [embed],
       components: [row, row2]

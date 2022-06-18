@@ -73,7 +73,7 @@ client.distube = new DisTube(client, {
   searchSongs: 0,
   youtubeCookie: config.youtubeCookie,     //Comment this line if you dont want to use a youtube Cookie 
   nsfw: false, //Set it to false if u want to disable nsfw songs
-  emptyCooldown: 25,
+  emptyCooldown: 120,
   ytdlOptions: {
     requestOptions: {
       agent
