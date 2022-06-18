@@ -24,6 +24,7 @@ module.exports = client => {
     // We instantiate express app and the session store.
     const app = express();
     const httpApp = express();
+    const port = 3000 || 8000 || 5500;
     const session = require(`express-session`);
     const MemoryStore = require(`memorystore`)(session);
 
