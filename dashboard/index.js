@@ -23,8 +23,8 @@ module.exports = client => {
     const settings = require("./settings.json");
     // We instantiate express app and the session store.
     const app = express();
-    const httpApp = express();
     const port = 3000 || 8000 || 5500;
+    const httpApp = express();
     const session = require(`express-session`);
     const MemoryStore = require(`memorystore`)(session);
 
@@ -35,7 +35,7 @@ module.exports = client => {
     passport.deserializeUser((obj, done) => done(null, obj));
     passport.use(new Strategy({
       clientID: settings.config.clientID,
-      clientSecret: settings.config.secret,
+      clientSecret: process.env.secrets || settings.config.secret,
       callbackURL: settings.config.callback,      
       scope: [`identify`, `guilds`, `guilds.join`]
     },
@@ -320,13 +320,14 @@ module.exports = client => {
         BotEmojis: BotEmojis,
       });
     })
+    
 
     /**
      * @START THE WEBSITE
      */
     //START THE WEBSITE ON THE DEFAULT PORT (80)
     const http = require(`http`).createServer(app);
-    http.listen(settings.config.http.port, () => {
-        console.log(`[${settings.website.domain}]: HTTP-Website running on ${settings.config.http.port} port.`)
+    http.listen(process.env.PORT, () => {
+        console.log(`[${settings.website.domain}]: HTTP-Website running on ${process.env.PORT} port.`)
     });
 }
