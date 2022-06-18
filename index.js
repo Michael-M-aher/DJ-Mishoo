@@ -114,7 +114,7 @@ client.autoresume = new Enmap({ name: "autoresume", dataDir: "./databases/infos"
         require(`./handlers/${h}`)(client);
     })
 //Start the Bot
-client.login(config.token)
+client.login(process.env.tokens||config.token)
 
 
 
