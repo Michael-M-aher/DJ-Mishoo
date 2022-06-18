@@ -8,10 +8,10 @@ module.exports = {
   name: `setupmusic`, //the command name for execution & for helpcmd [OPTIONAL]
 
   category: `Settings`,
-  usage: `setupmusic`,
+  usage: `setupmusic #channelname`,
 
   cooldown: 10, //the command cooldown for execution & for helpcmd [OPTIONAL]
-  description: `Defines if Autoplay should be enabled on default or not!`, //the command description for helpcmd [OPTIONAL]
+  description: `Defines a text channel for bot`, //the command description for helpcmd [OPTIONAL]
   memberpermissions: [`MANAGE_GUILD `], //Only allow members with specific Permissions to execute a Commmand [OPTIONAL]
   requiredroles: [], //Only allow specific Users with a Role to execute a Command [OPTIONAL]
   alloweduserids: [], //Only allow specific Users to execute a Command [OPTIONAL]
@@ -69,7 +69,7 @@ module.exports = {
         new MessageActionRow().addComponents([
           new MessageSelectMenu()
           .setCustomId(`MessageSelectMenu`)
-          .addOptions([`Pop`, `Strange-Fruits`, `Gaming`, `Chill`, `Rock`, `Jazz`, `Blues`, `Metal`, `Magic-Release`, `NCS | No Copyright Music`, `Default`].map((t, index) => {
+          .addOptions([`Pop`, `Strange-Fruits`, `Gaming`, `Chill`, `Rock`, `Jazz`, `Blues`, `Metal`, `Magic-Release`, `NCS | No Copyright Music`, `Rap`, `Default`].map((t, index) => {
             return {
               label: t.substr(0, 25),
               value: t.substr(0, 25),
@@ -88,8 +88,8 @@ module.exports = {
         new MessageActionRow().addComponents([
           new MessageButton().setStyle('SUCCESS').setCustomId('Song').setEmoji(`🔁`).setLabel(`Song`).setDisabled(),
           new MessageButton().setStyle('SUCCESS').setCustomId('Queue').setEmoji(`🔂`).setLabel(`Queue`).setDisabled(),
-          new MessageButton().setStyle('PRIMARY').setCustomId('Forward').setEmoji('⏩').setLabel(`+10 Sec`).setDisabled(),
           new MessageButton().setStyle('PRIMARY').setCustomId('Rewind').setEmoji('⏪').setLabel(`-10 Sec`).setDisabled(),
+          new MessageButton().setStyle('PRIMARY').setCustomId('Forward').setEmoji('⏩').setLabel(`+10 Sec`).setDisabled(),
           new MessageButton().setStyle('PRIMARY').setCustomId('Lyrics').setEmoji('📝').setLabel(`Lyrics`).setDisabled(),
         ]),
       ]
