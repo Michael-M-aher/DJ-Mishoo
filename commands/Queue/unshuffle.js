@@ -9,13 +9,13 @@ const {
 	check_if_dj
 } = require("../../handlers/functions")
 module.exports = {
-	name: "shuffle", //the command name for the Slash Command
+	name: "unshuffle", //the command name for the Slash Command
 
 	category: "Queue",
 	aliases: ["mix"],
-	usage: "shuffle",
+	usage: "unshuffle",
 
-	description: "Shuffles (Mixes) The Queue", //the command description for Slash Command Overview
+	description: "Un-Shuffles (Mixes) The Queue", //the command description for Slash Command Overview
 	cooldown: 10,
 	requiredroles: [], //Only allow specific Users with a Role to execute a Command [OPTIONAL]
 	alloweduserids: [], //Only allow specific Users to execute a Command [OPTIONAL]
@@ -63,7 +63,6 @@ module.exports = {
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor).setTitle(`${client.allEmojis.x} **I am nothing Playing right now!**`)
 					],
-
 				})
 				if (check_if_dj(client, member, newQueue.songs[0])) {
 					return message.reply({
@@ -75,13 +74,20 @@ module.exports = {
 						],
 					});
 				}
-				client.maps.set(`beforeshuffle-${newQueue.id}`, newQueue.songs.map(track => track).slice(1));
-				await newQueue.shuffle();
+				if(!client.maps.has(`beforeshuffle-${newQueue.id}`)) {
+					return message.reply({
+						embeds: [
+							new MessageEmbed().setColor(ee.wrongcolor).setTitle(`${client.allEmojis.x} **There was no shuffle before!**`)
+						],
+					})
+				}
+				newQueue.songs = [newQueue.songs[0], ...client.maps.get(`beforeshuffle-${newQueue.id}`)]
+				client.maps.delete(`beforeshuffle-${newQueue.id}`);
 				message.reply({
 					embeds: [new MessageEmbed()
 					  .setColor(ee.color)
 					  .setTimestamp()
-					  .setTitle(`🔀 **Suffled ${newQueue.songs.length} Songs!**`)
+					  .setTitle(`🔀 **__UN__ - Suffled ${newQueue.songs.length} Songs!**`)
 					  .setFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true}))]
 				})
 			} catch (e) {
@@ -100,4 +106,3 @@ module.exports = {
 		}
 	}
 }
-

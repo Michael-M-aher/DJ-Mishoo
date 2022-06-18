@@ -35,10 +35,6 @@ module.exports = {
         })
       }
       let volume = Number(args[0]);
-      client.settings.ensure(guild.id, {
-        defaultvolume: 50
-      });
-
       if (!volume || (volume > 150 || volume < 1)) {
         return message.reply({
           embeds: [
