@@ -36,4 +36,9 @@ module.exports = async (client, oldState, newState) => {
         }
         return;
     }
+    if (!oldState.channel.members.size - 1) 
+    setTimeout(() => {
+      if (!oldState.channel.members.size - 1)
+         oldState.channel.leave();
+     }, 300000);
 }

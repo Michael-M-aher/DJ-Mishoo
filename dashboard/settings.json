@@ -7,6 +7,15 @@
         "http": {
           "port": 80
         },
+        "https": {
+          "paths": {
+              "privkey": "/etc/letsencrypt/live/dj-mishoo.herokuapp.com/privkey.pem",
+              "fullchain": "/etc/letsencrypt/live/dj-mishoo.herokuapp.com/fullchain.pem",
+              "chain": "/etc/letsencrypt/live/dj-mishoo.herokuapp.com/chain.pem"
+          },
+          "enabled": false,
+          "port": 443
+      },
         "callback": "https://dj-mishoo.herokuapp.com/callback",
         "clientID": "891671130291732482",
         "secret": "CX52v5t9CqVsg1NftPy5YAFNsHBWNw_b"
