@@ -40,5 +40,5 @@ module.exports = async (client, oldState, newState) => {
     setTimeout(() => {
       if (!oldState.channel.members.size - 1)
          oldState.channel.leave();
-     }, 300000);
+     }, 6000);
 }
