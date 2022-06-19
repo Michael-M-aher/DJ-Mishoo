@@ -27,7 +27,7 @@ module.exports = (client) => {
 				//If its a valid cmdsetup
 				if(cmdSetup && cmdSetup.Folder) {
 					//Set the SubCommand as a Slash Builder
-					const subCommand = new SlashCommandBuilder().setName(String(cmdSetup.CmdName).replace(/\s+/g, '_').toLowerCase()).setDescription(String(cmdSetup.CmdDescription));
+					const subCommand = new SlashCommandBuilder().setName("").setDescription(String(cmdSetup.CmdDescription));
 					//Now for each file in that subcommand, add a command!
 					const slashCommands = readdirSync(`./slashCommands/${dir}/`).filter((file) => file.endsWith(".js"));
 					for (let file of slashCommands) {
