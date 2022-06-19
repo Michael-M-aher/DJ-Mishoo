@@ -5,9 +5,6 @@ const dirSetup = [{
 			"Folder": "Info", "CmdName": "info",
 			"CmdDescription": "Grant specific Information about something!"
 	},{
-			"Folder": "Settings", "CmdName": "settings",
-			"CmdDescription": "Adjust the Settings of the Bot!"
-	},{
 			"Folder": "Music", "CmdName": "music",
 			"CmdDescription": "Playing/Queuing Music"
 	},{
