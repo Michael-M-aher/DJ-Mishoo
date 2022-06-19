@@ -78,7 +78,7 @@ module.exports = (client) => {
 								}
 								return subcommand;
 							})
-							client.slashCommands.set(String(cmdSetup.CmdName).replace(/\s+/g, '_').toLowerCase() + pull.name, pull)
+							client.slashCommands.set(pull.name, pull)
 						} else {
 							console.log(file, `error -> missing a help.name, or help.name is not a string.`.brightRed);
 							continue;

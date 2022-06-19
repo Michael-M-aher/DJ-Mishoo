@@ -946,7 +946,7 @@ module.exports = (client) => {
           queue.textChannel.send({
             embeds: [
               new MessageEmbed().setColor(ee.color).setFooter(ee.footertext, ee.footericon)
-              .setTitle(`⛔️ LEFT QUEUE ENDED`)
+              .setTitle(`⛔️ QUEUE ENDED`)
               .setDescription(`:headphones: **The QUEUE is now empty**`)
               .setTimestamp()
             ]
