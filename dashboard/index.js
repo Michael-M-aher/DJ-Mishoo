@@ -333,7 +333,7 @@ module.exports = client => {
     });
     app.get("/next/:guildID", async (req,res) => {
       if (client.distube.getQueue(client.guilds.cache.get(req.params.guildID).id).songs.length == 0) {
-        await client.distube.getQueue(client.guilds.cache.get(req.params.guildID).id).stop()
+        await client.distube.getQueue(client.guilds.cache.get(req.params.guildID).id).stop();
       }
       await client.distube.getQueue(client.guilds.cache.get(req.params.guildID).id).skip();      
       
