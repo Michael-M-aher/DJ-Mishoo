@@ -198,10 +198,8 @@
         function callplay() {
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.open("GET", "/play/<%= req.params.guildID %>", true);
-            xmlhttp.onload = function() {
-                window.location.reload();
-            }
             xmlhttp.send();
+            window.location.reload();
         }
     </script>
   </body>
