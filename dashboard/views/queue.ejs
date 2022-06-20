@@ -203,7 +203,7 @@
         }
         function callstop() {
             var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", "/sto/<%= req.params.guildID %>", true);
+            xmlhttp.open("GET", "/stop/<%= req.params.guildID %>", true);
             xmlhttp.send();
             window.location.reload();
         }
