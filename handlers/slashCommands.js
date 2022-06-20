@@ -33,9 +33,7 @@ module.exports = (client) => {
 					for (let file of slashCommands) {
 						let pull = require(`../slashCommands/${dir}/${file}`);
 						if (pull.name && pull.description) {
-							subCommand
-							.addSubcommand((subcommand) => {
-								subcommand.setName(String(pull.name).toLowerCase()).setDescription(pull.description)
+							const subcommand = new SlashCommandBuilder().setName(String(pull.name).toLowerCase()).setDescription(pull.description)
 								if(pull.options && pull.options.length > 0){
 									for(const option of pull.options){
 										if(option.User && option.User.name && option.User.description){
@@ -73,16 +71,15 @@ module.exports = (client) => {
 										}
 									}
 								}
-								return subcommand;
-							})
+
 							client.slashCommands.set(pull.name, pull)
 						} else {
 							console.log(file, `error -> missing a help.name, or help.name is not a string.`.brightRed);
 							continue;
 						}
+						//add the subcommand to the array
+						allCommands.push(subcommand.toJSON());
 					}
-					//add the subcommand to the array
-					allCommands.push(subCommand.toJSON());
 				} 
 				else {
 					return console.log(`The Subcommand-Folder ${dir} is not in the dirSetup Configuration!`);
