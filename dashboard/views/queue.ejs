@@ -98,12 +98,12 @@
                                 Stop</button>
                             <% if(botClient.distube.getQueue(guild.id).playing){ %>
                             <button style="font-size: 30px;width: 100%;"
-                                class="btn btn-primary" type="button" onclick="() => <% botClient.distube.pause(guild.id) %>">
+                                class="btn btn-primary" type="button" onclick="pause()">
                                 <i class="iconify" data-icon="dashicons:controls-pause" ></i>
                                 Pause</button>
                             <% }else{ %>
                             <button style="font-size: 30px;width: 100%;"
-                                class="btn btn-success" type="button" onclick="() => <% botClient.distube.resume(guild.id) %>">
+                                class="btn btn-success" type="button" onclick="resume()">
                                 <i class="iconify" data-icon="dashicons:controls-play" ></i>
                                 Resume</button>
                             <% } %>
@@ -195,6 +195,13 @@
 
             }, 1000);
         }
+        function pause(){
+            <% botClient.distube.pause(guild.id) %>
+        }
+        function resume(){
+            <% botClient.distube.pause(guild.id) %>
+        }
+
     </script>
   </body>
 </html>
