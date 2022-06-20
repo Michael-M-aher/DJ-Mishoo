@@ -26,8 +26,6 @@ module.exports = (client) => {
 				const cmdSetup = dirSetup.find(d=>d.Folder == dir);
 				//If its a valid cmdsetup
 				if(cmdSetup && cmdSetup.Folder) {
-					//Set the SubCommand as a Slash Builder
-					const subCommand = new SlashCommandBuilder().setName("").setDescription(String(cmdSetup.CmdDescription));
 					//Now for each file in that subcommand, add a command!
 					const slashCommands = readdirSync(`./slashCommands/${dir}/`).filter((file) => file.endsWith(".js"));
 					for (let file of slashCommands) {
@@ -159,19 +157,19 @@ module.exports = (client) => {
 			}
 		})
 		//DISABLE WHEN USING GLOBAL!
-		client.on("guildCreate", async (guild) => {
-			try{
-				if(!config.loadSlashsGlobal){
-					await guild.commands.set([]).catch((e)=>{});
-					guild.commands.set(allCommands)
-						.then(slashCommandsData => {
-							console.log(`${slashCommandsData.size} slashCommands ${`(With ${slashCommandsData.map(d => d.options).flat().length} Subcommands)`.green} Loaded for: ${`${guild.name}`.underline}`.brightGreen); 
-						}).catch((e)=>{});
-				}
-			}catch (e){
-				console.log(String(e).grey)
-			}
-		})
+		// client.on("guildCreate", async (guild) => {
+		// 	try{
+		// 		if(!config.loadSlashsGlobal){
+		// 			await guild.commands.set([]).catch((e)=>{});
+		// 			guild.commands.set(allCommands)
+		// 				.then(slashCommandsData => {
+		// 					console.log(`${slashCommandsData.size} slashCommands ${`(With ${slashCommandsData.map(d => d.options).flat().length} Subcommands)`.green} Loaded for: ${`${guild.name}`.underline}`.brightGreen); 
+		// 				}).catch((e)=>{});
+		// 		}
+		// 	}catch (e){
+		// 		console.log(String(e).grey)
+		// 	}
+		// })
 		
     } catch (e) {
         console.log(String(e.stack).bgRed)
