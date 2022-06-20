@@ -320,6 +320,14 @@ module.exports = client => {
         BotEmojis: BotEmojis,
       });
     })
+
+    app.get("/play", () => {
+      if(client.distube.getQueue(guild.id).playing){
+        client.distube.pause(guild.id)
+      }else{
+        client.distube.resume(guild.id)
+      }
+    });
     
 
     /**
