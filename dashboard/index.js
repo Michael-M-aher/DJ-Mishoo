@@ -323,60 +323,19 @@ module.exports = client => {
 
     app.get("/play/:guildID", async (req,res) => {
       if(client.distube.getQueue(client.guilds.cache.get(req.params.guildID).id).playing){
-        interaction.reply({
-          embeds: [new MessageEmbed()
-            .setColor(ee.color)
-            .setTimestamp()
-            .setTitle(`⏸ **Paused!**`)
-            .setFooter(`💢 Action by: Web Client`)
-          ]
-        })
-        await client.distube.pause(client.guilds.cache.get(req.params.guildID).id)
+        client.distube.pause(client.guilds.cache.get(req.params.guildID).id)
       }else{
-        interaction.reply({
-          embeds: [new MessageEmbed()
-            .setColor(ee.color)
-            .setTimestamp()
-            .setTitle(`▶️ **Resumed!**`)
-            .setFooter(`💢 Action by: Web Client`)
-          ]
-        })
-        await client.distube.resume(client.guilds.cache.get(req.params.guildID).id)
+        client.distube.resume(client.guilds.cache.get(req.params.guildID).id)
       }
     });
     app.get("/stop/:guildID", async (req,res) => {
-      interaction.reply({
-        embeds: [new MessageEmbed()
-          .setColor(ee.color)
-          .setTimestamp()
-          .setTitle(`⏹ **Stopped playing and left the Channel**`)
-          .setFooter(`💢 Action by: Web Client`)
-        ]
-      })
       await client.distube.getQueue(client.guilds.cache.get(req.params.guildID).id).stop();
     });
     app.get("/next/:guildID", async (req,res) => {
       if (client.distube.getQueue(client.guilds.cache.get(req.params.guildID).id).songs.length == 0) {
-        interaction.reply({
-          embeds: [new MessageEmbed()
-            .setColor(ee.color)
-            .setTimestamp()
-            .setTitle(`⏹ **Stopped playing and left the Channel**`)
-            .setFooter(`💢 Action by: Web Client`)
-          ]
-        })
         await client.distube.getQueue(client.guilds.cache.get(req.params.guildID).id).stop()
-      }else{
-        interaction.reply({
-          embeds: [new MessageEmbed()
-            .setColor(ee.color)
-            .setTimestamp()
-            .setTitle(`⏭ **Skipped to the next Song!**`)
-            .setFooter(`💢 Action by: Web Client`)
-          ]
-        })
-        await client.distube.getQueue(client.guilds.cache.get(req.params.guildID).id).skip();
       }
+      await client.distube.getQueue(client.guilds.cache.get(req.params.guildID).id).skip();      
       
     });
     
