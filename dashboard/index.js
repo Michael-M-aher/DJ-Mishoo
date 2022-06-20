@@ -322,7 +322,7 @@ module.exports = client => {
     })
 
     app.get("/play/:guildID", async (req,res) => {
-      if(client.distube.getQueue(guild.id).playing){
+      if(client.distube.getQueue(client.guilds.cache.get(req.params.guildID).id).playing){
         client.distube.pause(client.guilds.cache.get(req.params.guildID).id)
       }else{
         client.distube.resume(client.guilds.cache.get(req.params.guildID).id)
