@@ -19,8 +19,8 @@ module.exports = (client, interaction) => {
   let prefix = client.settings.get(interaction.guildId)
   let command = false;
   try {
-    if (client.slashCommands.has(interaction.options.getSubcommand())) {
-      command = client.slashCommands.get(interaction.options.getSubcommand());
+    if (client.slashCommands.has(CategoryName)) {
+      command = client.slashCommands.get(CategoryName);
     }
   } catch {
     if (client.slashCommands.has("normal" + CategoryName)) {
