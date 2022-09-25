@@ -92,7 +92,7 @@ module.exports = {
 				//strange-fruits
 				if (args[0].toLowerCase().startsWith("str")) link = "https://open.spotify.com/playlist/6xGLprv9fmlMgeAMpW0x51";
 				//study
-				if (args[0].toLowerCase().startsWith("stu")) link = "https://open.spotify.com/playlist/4eYYYDgmbtzLuTgdT4t0SG?si=307e315ac6dc45fc";
+				if (args[0].toLowerCase().startsWith("stu")) link = "https://open.spotify.com/playlist/6Xu45MZVWn2j9vtwHduXxe?si=7254c1d26a5b4773";
 				//magic-release
 				if (args[0].toLowerCase().startsWith("mag")) link = "https://www.youtube.com/watch?v=WvMc5_RbQNc&list=PLYUn4Yaogdagvwe69dczceHTNm0K_ZG3P"
 				//mariam
@@ -105,6 +105,8 @@ module.exports = {
 				if (args[0].toLowerCase().startsWith("arab")) link = "https://open.spotify.com/playlist/6wXSqZ3Q0m63Cy0OPr1NB1?si=16ce9cc3933d4b72";
 				//Mishoo
 				if (args[0].toLowerCase().startsWith("mish")) link = "https://open.spotify.com/playlist/0PLzLZwXWtlgaO81GHn8LL?si=588215b75f43423f";
+				//love arabic
+				if (args[0].toLowerCase().startsWith("lo")) link = "https://open.spotify.com/playlist/049jkSZuyEkVZXBK0DFG61?si=26f5da27a8cf4ed8";
 			}
 			let newMsg = await message.reply({
 				content: `${client.allEmojis.loading} Loading the **'${args[0] ? args[0] : "Default"}' Music Mix**`,
@@ -126,7 +128,7 @@ module.exports = {
 					content: `${client.allEmojis.x} | Error: `,
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor)
-						.setDescription(`\`\`\`${e}\`\`\``)
+							.setDescription(`\`\`\`${e}\`\`\``)
 					],
 
 				})

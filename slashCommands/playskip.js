@@ -5,9 +5,12 @@ const {
 const config = require("../botconfig/config.json");
 const ee = require("../botconfig/embed.json");
 const settings = require("../botconfig/settings.json");
+const {
+	check_if_dj
+} = require("../handlers/functions")
 module.exports = {
-	name: "play", //the command name for the Slash Command
-	description: "Plays a Song/Playlist in your VoiceChannel", //the command description for Slash Command Overview
+	name: "playskip", //the command name for the Slash Command
+	description: "Plays a Song/Playlist and skips!", //the command description for Slash Command Overview
 	cooldown: 2,
 	requiredroles: [], //Only allow specific Users with a Role to execute a Command [OPTIONAL]
 	alloweduserids: [], //Only allow specific Users to execute a Command [OPTIONAL]
@@ -88,12 +91,26 @@ module.exports = {
 				let queue = client.distube.getQueue(guildId)
 				let options = {
 					member: member,
+					skip: true
 				}
 				if (!queue) options.textChannel = guild.channels.cache.get(channelId)
+				if (queue) {
+					if (check_if_dj(client, member, queue.songs[0])) {
+						return interaction.reply({
+							embeds: [new MessageEmbed()
+								.setColor(ee.wrongcolor)
+								.setFooter(ee.footertext, ee.footericon)
+								.setTitle(`${client.allEmojis.x} **You are not a DJ and not the Song Requester!**`)
+								.setDescription(`**DJ-ROLES:**\n> ${check_if_dj(client, member, queue.songs[0])}`)
+							],
+							ephemeral: true
+						});
+					}
+				}
 				await client.distube.playVoiceChannel(channel, Text, options)
 				//Edit the reply
 				interaction.editReply({
-					content: `${queue?.songs?.length > 0 ? "👍 Added" : "🎶 Now Playing"}: \`\`\`css\n${Text}\n\`\`\``,
+					content: `${queue?.songs?.length > 0 ? "⏭ Skipping to" : "🎶 Now Playing"}: \`\`\`css\n${Text}\n\`\`\``,
 					ephemeral: true
 				});
 			} catch (e) {

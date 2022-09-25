@@ -32,9 +32,9 @@
     "session": "^0.1.0",
     "url": "^0.11.0"
   },
-  "name": "musicium_r8_dashboard",
+  "name": "dj_mishoo",
   "description": "An advanced Discord Music Bot with a Dashboard, using distube.js.org having an interactive button & menu system and many features! Supported Features: Spotify • YouTube • SoundCloud • Live Stream • Audio Filtering • DJ Roles • Autoplay • Autoresume • Dashboard + Live Queue • ...",
-  "version": "8.1.0",
+  "version": "2.0.1",
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
@@ -43,7 +43,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tomato6966/Musicium.git"
+    "url": "git+https://github.com/Michael-M-aher/DJ-Mishoo.git"
   },
   "keywords": [
     "discord",
@@ -63,10 +63,10 @@
     "radio",
     "radiostations"
   ],
-  "author": "Tomato#6966",
+  "author": "Mishoo#2007",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Tomato6966/Musicium/issues"
+    "url": "https://github.com/Michael-M-aher/DJ-Mishoo/issues"
   },
-  "homepage": "https://github.com/Tomato6966/Musicium#readme"
+  "homepage": "https://github.com/Michael-M-aher/DJ-Mishoo/blob/main/README.md"
 }

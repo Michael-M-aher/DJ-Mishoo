@@ -1,25 +1,7 @@
 const { readdirSync, lstatSync } = require("fs");
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const config = require("../botconfig/config.json");
-const dirSetup = [{
-	"Folder": "Info", "CmdName": "info",
-	"CmdDescription": "Grant specific Information about something!"
-}, {
-	"Folder": "Settings", "CmdName": "settings",
-	"CmdDescription": "Adjust the Settings of the Bot!"
-}, {
-	"Folder": "Music", "CmdName": "music",
-	"CmdDescription": "Playing/Queuing Music"
-}, {
-	"Folder": "Queue", "CmdName": "queue",
-	"CmdDescription": "Queue Commands"
-}, {
-	"Folder": "Song", "CmdName": "song",
-	"CmdDescription": "Song specific Commands"
-}, {
-	"Folder": "Filter", "CmdName": "filter",
-	"CmdDescription": "Add Filters to your Music"
-}];
+const dirSetup = [];
 module.exports = (client) => {
 	try {
 		let allCommands = [];
