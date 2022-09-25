@@ -19,8 +19,8 @@ module.exports = (client, interaction) => {
   let prefix = client.settings.get(interaction.guildId)
   let command = false;
   try {
-    if (client.slashCommands.has(CategoryName)) {
-      command = client.slashCommands.get(CategoryName);
+    if (client.slashCommands.has(CategoryName + interaction.options.getSubcommand())) {
+      command = client.slashCommands.get(CategoryName + interaction.options.getSubcommand());
     }
   } catch {
     if (client.slashCommands.has("normal" + CategoryName)) {
@@ -38,7 +38,7 @@ module.exports = (client, interaction) => {
             .setColor(ee.wrongcolor)
             .setFooter(ee.footertext, ee.footericon)
             .setTitle(`${client.allEmojis.x} **You are not allowed to use this Command in here!**`)
-            .setDescription(`Please do it in one of those:\n> ${botchannels.map(c=>`<#${c}>`).join(", ")}`)
+            .setDescription(`Please do it in one of those:\n> ${botchannels.map(c => `<#${c}>`).join(", ")}`)
           ]
         })
       }
