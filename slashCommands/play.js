@@ -2,9 +2,9 @@ const {
 	MessageEmbed,
 	Message
 } = require("discord.js");
-const config = require("../../botconfig/config.json");
-const ee = require("../../botconfig/embed.json");
-const settings = require("../../botconfig/settings.json");
+const config = require("../botconfig/config.json");
+const ee = require("../botconfig/embed.json");
+const settings = require("../botconfig/settings.json");
 module.exports = {
 	name: "play", //the command name for the Slash Command
 	description: "Plays a Song/Playlist in your VoiceChannel", //the command description for Slash Command Overview
@@ -102,7 +102,7 @@ module.exports = {
 					content: `${client.allEmojis.x} | Error: `,
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor)
-						.setDescription(`\`\`\`${e}\`\`\``)
+							.setDescription(`\`\`\`${e}\`\`\``)
 					],
 					ephemeral: true
 				})

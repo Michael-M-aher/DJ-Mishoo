@@ -2,9 +2,9 @@ const {
 	MessageEmbed,
 	Message
 } = require("discord.js");
-const config = require("../../botconfig/config.json");
-const ee = require("../../botconfig/embed.json");
-const settings = require("../../botconfig/settings.json");
+const config = require("../botconfig/config.json");
+const ee = require("../botconfig/embed.json");
+const settings = require("../botconfig/settings.json");
 module.exports = {
 	name: "mix", //the command name for the Slash Command
 	description: "Plays a defined Mix", //the command description for Slash Command Overview
@@ -20,7 +20,7 @@ module.exports = {
 			choices: [
 				/*
 blues, oldgaming, pop, remixes, rock, strange-fruits-gaming
-      */
+	  */
 				["Blues Mix", "blues"],
 				["Charts Mix", "charts"],
 				["Chill Mix", "chill"],
@@ -42,7 +42,7 @@ blues, oldgaming, pop, remixes, rock, strange-fruits-gaming
 				["Study Mix", "study"],
 			]
 		}
-	}, ],
+	},],
 	run: async (client, interaction) => {
 		try {
 			//console.log(interaction, StringOption)
@@ -154,7 +154,7 @@ blues, oldgaming, pop, remixes, rock, strange-fruits-gaming
 					content: `${client.allEmojis.x} | Error: `,
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor)
-						.setDescription(`\`\`\`${e}\`\`\``)
+							.setDescription(`\`\`\`${e}\`\`\``)
 					],
 					ephemeral: true
 				})
