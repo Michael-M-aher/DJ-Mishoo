@@ -40,6 +40,7 @@ blues, oldgaming, pop, remixes, rock, strange-fruits-gaming
 				["Rap Mix", "rap"],
 				["Strange-Fruits Mix", "strange-fruits-gaming"],
 				["Study Mix", "study"],
+				["Love Mix", "love"],
 			]
 		}
 	},],
