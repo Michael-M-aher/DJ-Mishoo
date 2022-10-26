@@ -51,7 +51,7 @@ module.exports = {
 				return message.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`${client.allEmojis.x} Join __my__ Voice Channel!`)
 						.setDescription(`<#${guild.me.voice.channel.id}>`)
 					],
@@ -69,7 +69,7 @@ module.exports = {
 					return message.reply({
 						embeds: [new MessageEmbed()
 							.setColor(ee.wrongcolor)
-							.setFooter(ee.footertext, ee.footericon)
+							.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 							.setTitle(`${client.allEmojis.x} **You are not a DJ and not the Song Requester!**`)
 							.setDescription(`**DJ-ROLES:**\n> ${check_if_dj(client, member, newQueue.songs[0])}`)
 						],
@@ -79,7 +79,7 @@ module.exports = {
 					return message.reply({
 						embeds: [new MessageEmbed()
 							.setColor(ee.wrongcolor)
-							.setFooter(ee.footertext, ee.footericon)
+							.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 							.setTitle(`${client.allEmojis.x} **Please add valid Options!**`)
 							.setDescription(`**Usage:**\n> \`${client.settings.get(message.guild.id, "prefix")}loop <song/queue/off>\``)
 						],
@@ -90,7 +90,7 @@ module.exports = {
 					return message.reply({
 						embeds: [new MessageEmbed()
 							.setColor(ee.wrongcolor)
-							.setFooter(ee.footertext, ee.footericon)
+							.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 							.setTitle(`${client.allEmojis.x} **Please add valid Options!**`)
 							.setDescription(`**Usage:**\n> \`${client.settings.get(message.guild.id, "prefix")}loop <song/queue/off>\``)
 						],
@@ -103,27 +103,27 @@ module.exports = {
 				if (newQueue.repeatMode == 0) {
 					message.reply({
 						embeds: [new MessageEmbed()
-						  .setColor(ee.color)
-						  .setTimestamp()
-						  .setTitle(`${client.allEmojis.x} **Disabled the Loop Mode!**`)
-						  .setFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true}))]
+							.setColor(ee.color)
+							.setTimestamp()
+							.setTitle(`${client.allEmojis.x} **Disabled the Loop Mode!**`)
+							.setFooter({ text: `💢 Action by: ${member.user.tag}`, iconURL: member.user.displayAvatarURL({ dynamic: true }) })]
 					})
 				} else if (newQueue.repeatMode == 1) {
 					message.reply({
 						embeds: [new MessageEmbed()
-						  .setColor(ee.color)
-						  .setTimestamp()
-						  .setTitle(`🔁 **Enabled the __Song__-Loop** ||(Disabled the **Queue-Loop**)||`)
-						  .setFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true}))]
-						})
+							.setColor(ee.color)
+							.setTimestamp()
+							.setTitle(`🔁 **Enabled the __Song__-Loop** ||(Disabled the **Queue-Loop**)||`)
+							.setFooter({ text: `💢 Action by: ${member.user.tag}`, iconURL: member.user.displayAvatarURL({ dynamic: true }) })]
+					})
 				} else {
 					message.reply({
 						embeds: [new MessageEmbed()
-						  .setColor(ee.color)
-						  .setTimestamp()
-						  .setTitle(`🔂 **Enabled the __Queue__-Loop!** ||(Disabled the **Song-Loop**)||`)
-						  .setFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true}))]
-						})
+							.setColor(ee.color)
+							.setTimestamp()
+							.setTitle(`🔂 **Enabled the __Queue__-Loop!** ||(Disabled the **Song-Loop**)||`)
+							.setFooter({ text: `💢 Action by: ${member.user.tag}`, iconURL: member.user.displayAvatarURL({ dynamic: true }) })]
+					})
 				}
 			} catch (e) {
 				console.log(e.stack ? e.stack : e)
@@ -131,7 +131,7 @@ module.exports = {
 					content: `${client.allEmojis.x} | Error: `,
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor)
-						.setDescription(`\`\`\`${e}\`\`\``)
+							.setDescription(`\`\`\`${e}\`\`\``)
 					],
 
 				})

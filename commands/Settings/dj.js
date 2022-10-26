@@ -29,7 +29,7 @@ module.exports = {
         return message.reply({
           embeds: [new MessageEmbed()
             .setColor(ee.wrongcolor)
-            .setFooter(ee.footertext, ee.footericon)
+            .setFooter({ text: ee.footertext, iconURL: ee.footericon })
             .setTitle(`${client.allEmojis.x} **Please add a __Method+Role__!**`)
             .setDescription(`**Usage:**\n> \`${client.settings.get(message.guild.id, "prefix")}dj <add/remove> <@Role>\``)
           ],
@@ -40,7 +40,7 @@ module.exports = {
         return message.reply({
           embeds: [new MessageEmbed()
             .setColor(ee.wrongcolor)
-            .setFooter(ee.footertext, ee.footericon)
+            .setFooter({ text: ee.footertext, iconURL: ee.footericon })
             .setTitle(`${client.allEmojis.x} **Please add a __valid Method__+Role!**`)
             .setDescription(`**Usage:**\n> \`${client.settings.get(message.guild.id, "prefix")}dj <add/remove> <@Role>\``)
           ],
@@ -51,7 +51,7 @@ module.exports = {
         return message.reply({
           embeds: [new MessageEmbed()
             .setColor(ee.wrongcolor)
-            .setFooter(ee.footertext, ee.footericon)
+            .setFooter({ text: ee.footertext, iconURL: ee.footericon })
             .setTitle(`${client.allEmojis.x} **Please add a Method+__Role__!**`)
             .setDescription(`**Usage:**\n> \`${client.settings.get(message.guild.id, "prefix")}dj <add/remove> <@Role>\``)
           ],
@@ -62,9 +62,9 @@ module.exports = {
           return message.reply({
             embeds: [
               new MessageEmbed()
-              .setColor(ee.wrongcolor)
-              .setFooter(ee.footertext, ee.footericon)
-              .setTitle(`${client.allEmojis.x} **This Role is already a DJ-ROLE!**`)
+                .setColor(ee.wrongcolor)
+                .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+                .setTitle(`${client.allEmojis.x} **This Role is already a DJ-ROLE!**`)
             ],
           })
         }
@@ -75,10 +75,10 @@ module.exports = {
         return message.reply({
           embeds: [
             new MessageEmbed()
-            .setColor(ee.color)
-            .setFooter(ee.footertext, ee.footericon)
-            .setTitle(`${client.allEmojis.check_mark} **The Role \`${Role.name}\` got added to the ${client.settings.get(guild.id, "djroles").length - 1} DJ-Roles!**`)
-            .addField(`🎧 **DJ-Role${client.settings.get(guild.id, "djroles").length > 1 ? "s": ""}:**`, `>>> ${djs}`, true)
+              .setColor(ee.color)
+              .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+              .setTitle(`${client.allEmojis.check_mark} **The Role \`${Role.name}\` got added to the ${client.settings.get(guild.id, "djroles").length - 1} DJ-Roles!**`)
+              .addFields({ name: `🎧 **DJ-Role${client.settings.get(guild.id, "djroles").length > 1 ? "s" : ""}:**`, value: `>>> ${djs}`, inline: true })
           ],
         })
       } else {
@@ -86,9 +86,9 @@ module.exports = {
           return message.reply({
             embeds: [
               new MessageEmbed()
-              .setColor(ee.wrongcolor)
-              .setFooter(ee.footertext, ee.footericon)
-              .setTitle(`${client.allEmojis.x} **This Role is not a DJ-ROLE yet!**`)
+                .setColor(ee.wrongcolor)
+                .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+                .setTitle(`${client.allEmojis.x} **This Role is not a DJ-ROLE yet!**`)
             ],
           })
         }
@@ -99,10 +99,10 @@ module.exports = {
         return message.reply({
           embeds: [
             new MessageEmbed()
-            .setColor(ee.color)
-            .setFooter(ee.footertext, ee.footericon)
-            .setTitle(`${client.allEmojis.check_mark} **The Role \`${Role.name}\` got removed from the ${client.settings.get(guild.id, "djroles").length} DJ-Roles!**`)
-            .addField(`🎧 **DJ-Role${client.settings.get(guild.id, "djroles").length > 1 ? "s": ""}:**`, `>>> ${djs}`, true)
+              .setColor(ee.color)
+              .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+              .setTitle(`${client.allEmojis.check_mark} **The Role \`${Role.name}\` got removed from the ${client.settings.get(guild.id, "djroles").length} DJ-Roles!**`)
+              .addFields({ name: `🎧 **DJ-Role${client.settings.get(guild.id, "djroles").length > 1 ? "s" : ""}:**`, value: `>>> ${djs}`, inline: true })
           ],
         })
       }

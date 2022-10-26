@@ -46,7 +46,7 @@ module.exports = {
 				return interaction.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`${client.allEmojis.x} Join __my__ Voice Channel!`)
 						.setDescription(`<#${guild.me.voice.channel.id}>`)
 					],
@@ -61,7 +61,7 @@ module.exports = {
 					],
 					ephemeral: true
 				})
-				await client.distube.playVoiceChannel(channel, newQueue.songs[0].url)
+				await client.distube.play(channel, newQueue.songs[0].url)
 			} catch (e) {
 				console.log(e.stack ? e.stack : e)
 				interaction.editReply({

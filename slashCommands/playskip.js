@@ -65,7 +65,7 @@ module.exports = {
 				return interaction.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`<:declined:780403017160982538> Your Voice Channel is full, I can't join!`)
 					],
 					ephemeral: true
@@ -74,7 +74,7 @@ module.exports = {
 				return interaction.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`<:declined:780403017160982538> I am already connected somewhere else`)
 					],
 					ephemeral: true
@@ -99,7 +99,7 @@ module.exports = {
 						return interaction.reply({
 							embeds: [new MessageEmbed()
 								.setColor(ee.wrongcolor)
-								.setFooter(ee.footertext, ee.footericon)
+								.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 								.setTitle(`${client.allEmojis.x} **You are not a DJ and not the Song Requester!**`)
 								.setDescription(`**DJ-ROLES:**\n> ${check_if_dj(client, member, queue.songs[0])}`)
 							],
@@ -107,7 +107,7 @@ module.exports = {
 						});
 					}
 				}
-				await client.distube.playVoiceChannel(channel, Text, options)
+				await client.distube.play(channel, Text, options)
 				//Edit the reply
 				interaction.editReply({
 					content: `${queue?.songs?.length > 0 ? "⏭ Skipping to" : "🎶 Now Playing"}: \`\`\`css\n${Text}\n\`\`\``,

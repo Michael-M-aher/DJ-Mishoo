@@ -49,7 +49,7 @@ module.exports = {
 				return message.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`<:declined:780403017160982538> Your Voice Channel is full, I can't join!`)
 					],
 				});
@@ -57,7 +57,7 @@ module.exports = {
 				return message.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`<:declined:780403017160982538> I am already connected somewhere else`)
 					],
 				});
@@ -117,7 +117,7 @@ module.exports = {
 					member: member,
 				}
 				if (!queue) options.textChannel = guild.channels.cache.get(channelId)
-				await client.distube.playVoiceChannel(channel, link, options)
+				await client.distube.play(channel, link, options)
 				//Edit the reply
 				newMsg.edit({
 					content: `${queue?.songs?.length > 0 ? "👍 Loaded" : "🎶 Now Playing"}: the **'${args[0] ? args[0] : "Default"}'**`,

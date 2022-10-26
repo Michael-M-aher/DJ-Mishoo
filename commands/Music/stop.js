@@ -51,7 +51,7 @@ module.exports = {
 				return message.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`${client.allEmojis.x} Join __my__ Voice Channel!`)
 						.setDescription(`<#${guild.me.voice.channel.id}>`)
 					],
@@ -59,17 +59,17 @@ module.exports = {
 			}
 			try {
 				let newQueue = client.distube.getQueue(guildId);
-				if(!newQueue)
-				if (!newQueue || !newQueue.songs || newQueue.songs.length == 0) return message.reply({
-					embeds: [
-						new MessageEmbed().setColor(ee.wrongcolor).setTitle(`${client.allEmojis.x} **I am nothing Playing right now!**`)
-					],
-				})
+				if (!newQueue)
+					if (!newQueue || !newQueue.songs || newQueue.songs.length == 0) return message.reply({
+						embeds: [
+							new MessageEmbed().setColor(ee.wrongcolor).setTitle(`${client.allEmojis.x} **I am nothing Playing right now!**`)
+						],
+					})
 				if (check_if_dj(client, member, newQueue.songs[0])) {
 					return message.reply({
 						embeds: [new MessageEmbed()
 							.setColor(ee.wrongcolor)
-							.setFooter(ee.footertext, ee.footericon)
+							.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 							.setTitle(`${client.allEmojis.x} **You are not a DJ and not the Song Requester!**`)
 							.setDescription(`**DJ-ROLES:**\n> ${check_if_dj(client, member, newQueue.songs[0])}`)
 						],
@@ -79,10 +79,10 @@ module.exports = {
 				//Reply with a Message
 				message.reply({
 					embeds: [new MessageEmbed()
-					  .setColor(ee.color)
-					  .setTimestamp()
-					  .setTitle(`⏹ **Stopped playing and left the Channel!**`)
-					  .setFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true}))]
+						.setColor(ee.color)
+						.setTimestamp()
+						.setTitle(`⏹ **Stopped playing and left the Channel!**`)
+						.setFooter({ text: `💢 Action by: ${member.user.tag}`, iconURL: member.user.displayAvatarURL({ dynamic: true }) })]
 				})
 				return
 			} catch (e) {
@@ -91,7 +91,7 @@ module.exports = {
 					content: `${client.allEmojis.x} | Error: `,
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor)
-						.setDescription(`\`\`\`${e}\`\`\``)
+							.setDescription(`\`\`\`${e}\`\`\``)
 					],
 
 				})

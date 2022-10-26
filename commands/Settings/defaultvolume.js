@@ -27,10 +27,10 @@ module.exports = {
         return message.reply({
           embeds: [
             new MessageEmbed()
-            .setColor(ee.wrongcolor)
-            .setFooter(ee.footertext, ee.footericon)
-            .setTitle(`${client.allEmojis.x} **Please add a Volume!**`)
-            .setDescription(`**Usage:**\n> \`${client.settings.get(guild.id, "prefix")}defaultvolume <percentage>\``)
+              .setColor(ee.wrongcolor)
+              .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+              .setTitle(`${client.allEmojis.x} **Please add a Volume!**`)
+              .setDescription(`**Usage:**\n> \`${client.settings.get(guild.id, "prefix")}defaultvolume <percentage>\``)
           ],
         })
       }
@@ -39,9 +39,9 @@ module.exports = {
         return message.reply({
           embeds: [
             new MessageEmbed()
-            .setColor(ee.wrongcolor)
-            .setFooter(ee.footertext, ee.footericon)
-            .setTitle(`${client.allEmojis.x} **The Volume __must__ be between \`1\` and \`150\`!**`)
+              .setColor(ee.wrongcolor)
+              .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+              .setTitle(`${client.allEmojis.x} **The Volume __must__ be between \`1\` and \`150\`!**`)
           ],
         })
       }
@@ -49,9 +49,9 @@ module.exports = {
       return message.reply({
         embeds: [
           new MessageEmbed()
-          .setColor(ee.color)
-          .setFooter(ee.footertext, ee.footericon)
-          .setTitle(`${client.allEmojis.check_mark} **The Default-Volume has been set to: \`${volume}\`!**`)
+            .setColor(ee.color)
+            .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+            .setTitle(`${client.allEmojis.check_mark} **The Default-Volume has been set to: \`${volume}\`!**`)
         ],
       })
     } catch (e) {

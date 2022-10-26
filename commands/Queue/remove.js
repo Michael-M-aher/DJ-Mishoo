@@ -51,7 +51,7 @@ module.exports = {
 				return message.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`${client.allEmojis.x} Join __my__ Voice Channel!`)
 						.setDescription(`<#${guild.me.voice.channel.id}>`)
 					],
@@ -69,7 +69,7 @@ module.exports = {
 					return message.reply({
 						embeds: [new MessageEmbed()
 							.setColor(ee.wrongcolor)
-							.setFooter(ee.footertext, ee.footericon)
+							.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 							.setTitle(`${client.allEmojis.x} **You are not a DJ and not the Song Requester!**`)
 							.setDescription(`**DJ-ROLES:**\n> ${check_if_dj(client, member, newQueue.songs[0])}`)
 						],
@@ -79,7 +79,7 @@ module.exports = {
 					return message.reply({
 						embeds: [new MessageEmbed()
 							.setColor(ee.wrongcolor)
-							.setFooter(ee.footertext, ee.footericon)
+							.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 							.setTitle(`${client.allEmojis.x} **Please add a Song-Position!**`)
 							.setDescription(`**Usage:**\n> \`${client.settings.get(message.guild.id, "prefix")}remove <SongPosition> [Amount]\``)
 						],
@@ -90,7 +90,7 @@ module.exports = {
 					return message.reply({
 						embeds: [new MessageEmbed()
 							.setColor(ee.wrongcolor)
-							.setFooter(ee.footertext, ee.footericon)
+							.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 							.setTitle(`${client.allEmojis.x} **Please add a Song-Position NUMBER!**`)
 							.setDescription(`**Usage:**\n> \`${client.settings.get(message.guild.id, "prefix")}remove <SongPosition> [Amount]\``)
 						],
@@ -101,14 +101,14 @@ module.exports = {
 				if (songIndex > newQueue.songs.length - 1) return message.reply({
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor).setTitle(`${client.allEmojis.x} **This Song does not exist!**`)
-						.setDescription(`**The last Song in the Queue has the Index: \`${newQueue.songs.length}\`**`)
+							.setDescription(`**The last Song in the Queue has the Index: \`${newQueue.songs.length}\`**`)
 					],
 
 				})
 				if (songIndex <= 0) return message.reply({
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor).setTitle(`${client.allEmojis.x} **You can't remove the current Song (0)!**`)
-						.setDescription(`**Use the \`${client.settings.get(guild.id, "prefix")}skip\` (Slash)Command instead!**`)
+							.setDescription(`**Use the \`${client.settings.get(guild.id, "prefix")}skip\` (Slash)Command instead!**`)
 					],
 
 				})
@@ -121,10 +121,10 @@ module.exports = {
 				newQueue.songs.splice(songIndex, amount);
 				message.reply({
 					embeds: [new MessageEmbed()
-					  .setColor(ee.color)
-					  .setTimestamp()
-					  .setTitle(`🗑 **Removed ${amount} Song${amount > 1 ?"s": ""} out of the Queue!**`)
-					  .setFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true}))]
+						.setColor(ee.color)
+						.setTimestamp()
+						.setTitle(`🗑 **Removed ${amount} Song${amount > 1 ? "s" : ""} out of the Queue!**`)
+						.setFooter({ text: `💢 Action by: ${member.user.tag}`, iconURL: member.user.displayAvatarURL({ dynamic: true }) })]
 				})
 			} catch (e) {
 				console.log(e.stack ? e.stack : e)
@@ -132,7 +132,7 @@ module.exports = {
 					content: `${client.allEmojis.x} | Error: `,
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor)
-						.setDescription(`\`\`\`${e}\`\`\``)
+							.setDescription(`\`\`\`${e}\`\`\``)
 					],
 
 				})

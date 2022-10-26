@@ -1,12 +1,14 @@
 {
   "token": "Discord-Bot-Token-goes-here!",
   "prefix": "-",
-  "ksoftapi": "81b1f1d4411405cbb27e6a950cf07be3176ea2fe",
-  "youtubeCookie": "VISITOR_INFO1_LIVE=_T60JyKtd5o; PREF=tz=Africa.Cairo&f6=40000000; SID=Ngjl8T21_BSbpA8zGcR0XAAGH0s0fz5TRXG4SNUMDVM6qmAI4ex8sD8OLshXCvNWCvoo7w.; __Secure-1PSID=Ngjl8T21_BSbpA8zGcR0XAAGH0s0fz5TRXG4SNUMDVM6qmAIEtBcAWbKAo9Wg1g3kaukHg.; __Secure-3PSID=Ngjl8T21_BSbpA8zGcR0XAAGH0s0fz5TRXG4SNUMDVM6qmAILpJzdWojv21312dIBrbcbA.; HSID=A2Lh6vywAqBlNxd8j; SSID=AVfoZlhMoAsoVECdB; APISID=C6CofwDfEpUOA0sM/Aa4PDQe3yl7mAmKKw; SAPISID=a5-VCTQCViE6Hw8L/AHaoLpVmuryKxcK3P; __Secure-1PAPISID=a5-VCTQCViE6Hw8L/AHaoLpVmuryKxcK3P; __Secure-3PAPISID=a5-VCTQCViE6Hw8L/AHaoLpVmuryKxcK3P; LOGIN_INFO=AFmmF2swRgIhAIklPwCj7udAQAjeMCZBDl8Xi2ZpJm14IIyeP2IFQMh_AiEAxIWcUc5S0IWBiqMpzGubOST0ux6s7MZOtXOp7zG6i5o:QUQ3MjNmeVlabGdJcDZhWUFuQl9vejJid1lDb2lJbzYwZW4xZGtvYklDSTJZTUdMcjczZl9LaF9UN0FiZkhBNEtlQXluWl9rZktlaUtDWmpYa2dERm1SWDBjWHBwbTByRnB5eXVqMUgxM0pyMERPRUZRQ01DVjB1bl9hM0YyWjJ6OWZGU2h2OHRaSW1UeVR3NVdXVEFNZVV2cEFXUFNGX2x3; CONSISTENCY=AGXVzq8o7xDt8qLlPYMYwamy-EfQ3LL-yy1UoMfUfIBysPRP1wZDO4t4EHFvos2atSQRc4g7R1yp7XJx4QRqU3Eoqh8MXF-6SSTHWLtbdq64GLJ7KQXYPcMUaJjGRCUUhY1PZVNL7VlmepK0bSd2gRiXHwBrejc93vDmuO4B8tI6ryWE0fu9c_WjdJaa0D58l3xA6RJGLwAKLmB96bBLkA; SIDCC=AEf-XMTNnbzJyHMyw3OprTDEfAVsB9ZDUCOy8K1mzNIXjVdg3yjA59oR9W1ny3SH7w359wLJow; __Secure-1PSIDCC=AEf-XMSqed9KJ0KWZrSYG8reOy8c-ym1ggJKhPbUYT94b3zSyGO5gRrWdArmaxf2LLTi2Qzs; __Secure-3PSIDCC=AEf-XMR8ZpFAXo_fDmiFmO3E2a7kcrk7vowJnfvUs1wEsmhZsOgID87biqqPjjSPO2HzfXtrmg",
+  "geniusapi": "",
+  "youtubeCookie": "",
   "spotify_api": {
-        "enabled": true, "_COMMENT_": "Set it to false, if you want to scrape, when on true you can get spotify playlists with 100+ Tracks",
-	  "clientSecret": "1731c37ef9c2467a95a41cc062479aaf",
-        "clientId": "5b45dfcf514c4b7a89f08a1f2235d184"
+    "enabled": true,
+    "_COMMENT_": "Set it to false, if you want to scrape, when on true you can get spotify playlists with 100+ Tracks",
+    "clientSecret": "",
+    "clientId": ""
   },
-  "loadSlashsGlobal": true, "_COMMENT_": "Set it to true, when your Slash Commands are ready, false loads instant true loads slow but stable! (GLOBAL/GUILD COMMANDS, DISCORD DOCS!)"
+  "loadSlashsGlobal": true,
+  "_COMMENT_": "Set it to true, when your Slash Commands are ready, false loads instant true loads slow but stable! (GLOBAL/GUILD COMMANDS, DISCORD DOCS!)"
 }

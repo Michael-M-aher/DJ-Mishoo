@@ -36,7 +36,7 @@ module.exports = (client, interaction) => {
           ephemeral: true,
           embeds: [new Discord.MessageEmbed()
             .setColor(ee.wrongcolor)
-            .setFooter(ee.footertext, ee.footericon)
+            .setFooter({ text: ee.footertext, iconURL: ee.footericon })
             .setTitle(`${client.allEmojis.x} **You are not allowed to use this Command in here!**`)
             .setDescription(`Please do it in one of those:\n> ${botchannels.map(c => `<#${c}>`).join(", ")}`)
           ]
@@ -48,7 +48,7 @@ module.exports = (client, interaction) => {
         ephemeral: true,
         embeds: [new Discord.MessageEmbed()
           .setColor(ee.wrongcolor)
-          .setFooter(ee.footertext, ee.footericon)
+          .setFooter({ text: ee.footertext, iconURL: ee.footericon })
           .setTitle(replacemsg(settings.messages.cooldown, {
             prefix: prefix,
             command: command,
@@ -63,7 +63,7 @@ module.exports = (client, interaction) => {
         ephemeral: true,
         embeds: [new Discord.MessageEmbed()
           .setColor(ee.wrongcolor)
-          .setFooter(ee.footertext, ee.footericon)
+          .setFooter({ text: ee.footertext, iconURL: ee.footericon })
           .setTitle(replacemsg(settings.messages.notallowed_to_exec_cmd.title))
           .setDescription(replacemsg(settings.messages.notallowed_to_exec_cmd.description.memberpermissions, {
             command: command,
@@ -78,7 +78,7 @@ module.exports = (client, interaction) => {
         ephemeral: true,
         embeds: [new Discord.MessageEmbed()
           .setColor(ee.wrongcolor)
-          .setFooter(ee.footertext, ee.footericon)
+          .setFooter({ text: ee.footertext, iconURL: ee.footericon })
           .setTitle(replacemsg(settings.messages.notallowed_to_exec_cmd.title))
           .setDescription(replacemsg(settings.messages.notallowed_to_exec_cmd.description.requiredroles, {
             command: command,
@@ -93,7 +93,7 @@ module.exports = (client, interaction) => {
         ephemeral: true,
         embeds: [new Discord.MessageEmbed()
           .setColor(ee.wrongcolor)
-          .setFooter(ee.footertext, ee.footericon)
+          .setFooter({ text: ee.footertext, iconURL: ee.footericon })
           .setTitle(replacemsg(settings.messages.notallowed_to_exec_cmd.title))
           .setDescription(replacemsg(settings.messages.notallowed_to_exec_cmd.description.alloweduserids, {
             command: command,

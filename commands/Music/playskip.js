@@ -51,7 +51,7 @@ module.exports = {
 				return message.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`<:declined:780403017160982538> Your Voice Channel is full, I can't join!`)
 					],
 				});
@@ -59,7 +59,7 @@ module.exports = {
 				return message.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`<:declined:780403017160982538> I am already connected somewhere else`)
 					],
 				});
@@ -68,7 +68,7 @@ module.exports = {
 				return message.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`${client.allEmojis.x} **Please add a Search Query!**`)
 						.setDescription(`**Usage:**\n> \`${client.settings.get(message.guild.id, "prefix")}playskip <Search/Link>\``)
 					],
@@ -94,14 +94,14 @@ module.exports = {
 						return message.reply({
 							embeds: [new MessageEmbed()
 								.setColor(ee.wrongcolor)
-								.setFooter(ee.footertext, ee.footericon)
+								.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 								.setTitle(`${client.allEmojis.x} **You are not a DJ and not the Song Requester!**`)
 								.setDescription(`**DJ-ROLES:**\n> ${check_if_dj(client, member, queue.songs[0])}`)
 							],
 						});
 					}
 				}
-				await client.distube.playVoiceChannel(channel, Text, options)
+				await client.distube.play(channel, Text, options)
 				//Edit the reply
 				newmsg.edit({
 					content: `${queue?.songs?.length > 0 ? "⏭ Skipping to" : "🎶 Now Playing"}: \`\`\`css\n${Text}\n\`\`\``,
@@ -114,7 +114,7 @@ module.exports = {
 					content: `${client.allEmojis.x} | Error: `,
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor)
-						.setDescription(`\`\`\`${e}\`\`\``)
+							.setDescription(`\`\`\`${e}\`\`\``)
 					],
 
 				})

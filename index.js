@@ -8,6 +8,7 @@ const libsodium = require("libsodium-wrappers");
 const ffmpeg = require("ffmpeg-static");
 const voice = require("@discordjs/voice");
 const DisTube = require("distube").default;
+const { YtDlpPlugin } = require("@distube/yt-dlp");
 const https = require('https-proxy-agent');
 const client = new Discord.Client({
   fetchAllMembers: false,
@@ -58,8 +59,8 @@ let spotifyoptions = {
 }
 if (config.spotify_api.enabled) {
   spotifyoptions.api = {
-    clientId: config.spotify_api.clientId,
-    clientSecret: config.spotify_api.clientSecret,
+    clientId: process.env.clientId || config.spotify_api.clientId,
+    clientSecret: process.env.clientSecret || config.spotify_api.clientSecret,
   }
 }
 client.distube = new DisTube(client, {
@@ -71,7 +72,7 @@ client.distube = new DisTube(client, {
   emitAddSongWhenCreatingQueue: false,
   //emitAddListWhenCreatingQueue: false,
   searchSongs: 0,
-  youtubeCookie: config.youtubeCookie,     //Comment this line if you dont want to use a youtube Cookie 
+  youtubeCookie: process.env.youtubeCookie || config.youtubeCookie,     //Comment this line if you dont want to use a youtube Cookie 
   nsfw: false, //Set it to false if u want to disable nsfw songs
   emptyCooldown: 25,
   ytdlOptions: {
@@ -84,10 +85,10 @@ client.distube = new DisTube(client, {
     liveBuffer: 60000,
     dlChunkSize: 1024 * 1024 * 4,
   },
-  youtubeDL: true,
-  updateYouTubeDL: true,
+  youtubeDL: false,
   customFilters: filters,
   plugins: [
+    new YtDlpPlugin({ update: true }),
     new SpotifyPlugin(spotifyoptions),
     new SoundCloudPlugin()
   ]

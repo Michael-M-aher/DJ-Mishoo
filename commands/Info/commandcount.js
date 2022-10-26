@@ -19,7 +19,7 @@ module.exports = {
       message.reply({
         embeds: [new MessageEmbed()
           .setColor(ee.color)
-          .setFooter(ee.footertext, ee.footericon)
+          .setFooter({ text: ee.footertext, iconURL: ee.footericon })
           .setTitle(`:gear: **[${client.commands.size}] Commands**`)
           .setDescription(`:gear: **[${client.categories.length}] Categories**\n\n:gear: **[${client.slashCommands.size + client.slashCommands.map(d => d.options).flat().length}] Slash Commands**\n\n`)
         ]

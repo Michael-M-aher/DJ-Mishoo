@@ -51,7 +51,7 @@ module.exports = {
 				return message.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`${client.allEmojis.x} Join __my__ Voice Channel!`)
 						.setDescription(`<#${guild.me.voice.channel.id}>`)
 					],
@@ -68,13 +68,13 @@ module.exports = {
 					return message.reply({
 						embeds: [new MessageEmbed()
 							.setColor(ee.wrongcolor)
-							.setFooter(ee.footertext, ee.footericon)
+							.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 							.setTitle(`${client.allEmojis.x} **You are not a DJ and not the Song Requester!**`)
 							.setDescription(`**DJ-ROLES:**\n> ${check_if_dj(client, member, newQueue.songs[0])}`)
 						],
 					});
 				}
-				if(!client.maps.has(`beforeshuffle-${newQueue.id}`)) {
+				if (!client.maps.has(`beforeshuffle-${newQueue.id}`)) {
 					return message.reply({
 						embeds: [
 							new MessageEmbed().setColor(ee.wrongcolor).setTitle(`${client.allEmojis.x} **There was no shuffle before!**`)
@@ -85,10 +85,10 @@ module.exports = {
 				client.maps.delete(`beforeshuffle-${newQueue.id}`);
 				message.reply({
 					embeds: [new MessageEmbed()
-					  .setColor(ee.color)
-					  .setTimestamp()
-					  .setTitle(`🔀 **__UN__ - Suffled ${newQueue.songs.length} Songs!**`)
-					  .setFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true}))]
+						.setColor(ee.color)
+						.setTimestamp()
+						.setTitle(`🔀 **__UN__ - Suffled ${newQueue.songs.length} Songs!**`)
+						.setFooter({ text: `💢 Action by: ${member.user.tag}`, iconURL: member.user.displayAvatarURL({ dynamic: true }) })]
 				})
 			} catch (e) {
 				console.log(e.stack ? e.stack : e)
@@ -96,7 +96,7 @@ module.exports = {
 					content: `${client.allEmojis.x} | Error: `,
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor)
-						.setDescription(`\`\`\`${e}\`\`\``)
+							.setDescription(`\`\`\`${e}\`\`\``)
 					],
 
 				})

@@ -40,7 +40,7 @@ module.exports = {
 				return message.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`${client.allEmojis.x} Join __my__ Voice Channel!`)
 						.setDescription(`<#${guild.me.voice.channel.id}>`)
 					],
@@ -58,7 +58,7 @@ module.exports = {
 					return message.reply({
 						embeds: [new MessageEmbed()
 							.setColor(ee.wrongcolor)
-							.setFooter(ee.footertext, ee.footericon)
+							.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 							.setTitle(`${client.allEmojis.x}**You are not a DJ and not the Song Requester!**`)
 							.setDescription(`**DJ-ROLES:**\n> ${check_if_dj(client, member, newQueue.songs[0])}`)
 						],
@@ -68,9 +68,9 @@ module.exports = {
 					return message.reply({
 						embeds: [
 							new MessageEmbed()
-							.setColor(ee.wrongcolor)
-							.setFooter(ee.footertext, ee.footericon)
-							.setTitle(`${client.allEmojis.x} **Please add a Speed Amount between 0+ and 2!**`)
+								.setColor(ee.wrongcolor)
+								.setFooter({ text: ee.footertext, iconURL: ee.footericon })
+								.setTitle(`${client.allEmojis.x} **Please add a Speed Amount between 0+ and 2!**`)
 						],
 					})
 				}
@@ -79,9 +79,9 @@ module.exports = {
 					return message.reply({
 						embeds: [
 							new MessageEmbed()
-							.setColor(ee.wrongcolor)
-							.setFooter(ee.footertext, ee.footericon)
-							.setTitle(`${client.allEmojis.x} **Please add a Speed Amount between 0+ and 2!**`)
+								.setColor(ee.wrongcolor)
+								.setFooter({ text: ee.footertext, iconURL: ee.footericon })
+								.setTitle(`${client.allEmojis.x} **Please add a Speed Amount between 0+ and 2!**`)
 						],
 					})
 				}
@@ -95,10 +95,10 @@ module.exports = {
 				await newQueue.setFilter(["customspeed"]);
 				message.reply({
 					embeds: [new MessageEmbed()
-					  .setColor(ee.color)
-					  .setTimestamp()
-					  .setTitle(`♨️ **Set the Speed to ${speed_amount}!**`)
-					  .setFooter(`💢 Action by: ${member.user.tag}`, member.user.displayAvatarURL({dynamic: true}))]
+						.setColor(ee.color)
+						.setTimestamp()
+						.setTitle(`♨️ **Set the Speed to ${speed_amount}!**`)
+						.setFooter({ text: `💢 Action by: ${member.user.tag}`, iconURL: member.user.displayAvatarURL({ dynamic: true }) })]
 				})
 			} catch (e) {
 				console.log(e.stack ? e.stack : e)
@@ -106,7 +106,7 @@ module.exports = {
 					content: `${client.allEmojis.x} | Error: `,
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor)
-						.setDescription(`\`\`\`${e}\`\`\``)
+							.setDescription(`\`\`\`${e}\`\`\``)
 					],
 
 				})

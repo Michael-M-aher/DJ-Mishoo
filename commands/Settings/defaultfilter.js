@@ -29,23 +29,23 @@ module.exports = {
         return message.reply({
           embeds: [
             new MessageEmbed()
-            .setColor(ee.wrongcolor)
-            .setFooter(ee.footertext, ee.footericon)
-            .setTitle(`${client.allEmojis.x} **You added at least one Filter, which is invalid!**`)
-            .setDescription("**To define Multiple Filters add a SPACE (` `) in between!**")
-            .addField("**All Valid Filters:**", Object.keys(filters).map(f => `\`${f}\``).join(", "))
+              .setColor(ee.wrongcolor)
+              .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+              .setTitle(`${client.allEmojis.x} **You added at least one Filter, which is invalid!**`)
+              .setDescription("**To define Multiple Filters add a SPACE (` `) in between!**")
+              .addFields({ name: "**All Valid Filters:**", value: Object.keys(filters).map(f => `\`${f}\``).join(", ") })
           ],
         })
       }
       client.settings.set(guild.id, args, "defaultfilters");
-      let newfilters = args.length > 0 ?args.map(a=>`\`${a}\``).join(", ") : `\`NOTHING\`\n> **Command Usage:** \`${client.settings.get(guild.id, "prefix")}defaultfilter <filter1 filter2 etc.>\``; 
+      let newfilters = args.length > 0 ? args.map(a => `\`${a}\``).join(", ") : `\`NOTHING\`\n> **Command Usage:** \`${client.settings.get(guild.id, "prefix")}defaultfilter <filter1 filter2 etc.>\``;
       return message.reply({
         embeds: [
           new MessageEmbed()
-          .setColor(ee.color)
-          .setFooter(ee.footertext, ee.footericon)
-          .setTitle(`${client.allEmojis.check_mark} **The new Default-Filter${args.length > 1 ? "s are": " is"}:**`)
-          .setDescription(`${newfilters}`)
+            .setColor(ee.color)
+            .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+            .setTitle(`${client.allEmojis.check_mark} **The new Default-Filter${args.length > 1 ? "s are" : " is"}:**`)
+            .setDescription(`${newfilters}`)
         ],
       })
     } catch (e) {

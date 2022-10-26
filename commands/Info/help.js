@@ -28,15 +28,15 @@ module.exports = {
             embeds: [embed.setColor(ee.wrongcolor).setDescription(`No Information found for command **${args.toLowerCase()}**`)]
           });
         }
-        if (cmd.name) embed.addField("**Command name**", `\`${cmd.name}\``);
+        if (cmd.name) embed.addFields({ name: "**Command name**", value: `\`${cmd.name}\`` });
         if (cmd.name) embed.setTitle(`Detailed Information about:\`${cmd.name}\``);
-        if (cmd.description) embed.addField("**Description**", `\`${cmd.description}\``);
-        if (cmd.aliases) embed.addField("**Aliases**", `\`${cmd.aliases.map((a) => `${a}`).join("`, `")}\``);
-        if (cmd.cooldown) embed.addField("**Cooldown**", `\`${cmd.cooldown} Seconds\``);
-        else embed.addField("**Cooldown**", `\`${settings.default_cooldown_in_sec} Second\``);
+        if (cmd.description) embed.addFields({ name: "**Description**", value: `\`${cmd.description}\`` });
+        if (cmd.aliases) embed.addFields({ name: "**Aliases**", value: `\`${cmd.aliases.map((a) => `${a}`).join("`, `")}\`` });
+        if (cmd.cooldown) embed.addFields({ name: "**Cooldown**", value: `\`${cmd.cooldown} Seconds\`` });
+        else embed.addFields({ name: "**Cooldown**", value: `\`${settings.default_cooldown_in_sec} Second\`` });
         if (cmd.usage) {
-          embed.addField("**Usage**", `\`${prefix}${cmd.usage}\``);
-          embed.setFooter("Syntax: <> = required, [] = optional");
+          embed.addFields({ name: "**Usage**", value: `\`${prefix}${cmd.usage}\`` });
+          embed.setFooter({ text: "Syntax: <> = required, [] = optional" });
         }
         return message.reply({
           embeds: [embed.setColor(ee.color)]
@@ -47,7 +47,7 @@ module.exports = {
           .setThumbnail(ee.footericon)
           .setTitle("HELP MENU 🔰 Commands")
           .setDescription(`**[Invite me with __Slash Commands__ Permissions](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands), cause all of my Commands are available as Slash Commands too!**\n\n> Check out the [**Dashboard**](${websiteSettings.website.domain}/dashboard/${message.guild.id}) or the [**Live Music Queue**](${websiteSettings.website.domain}/queue/${message.guild.id})`)
-          .setFooter(`To see Command Description & Information, type: ${prefix}help [CMD NAME]`, ee.footericon);
+          .setFooter({ text: `To see Command Description & Information, type: ${prefix}help [CMD NAME]`, iconURL: ee.footericon });
         const commands = (category) => {
           return client.commands.filter((cmd) => cmd.category === category).map((cmd) => `\`${cmd.name}\``);
         };
@@ -55,7 +55,7 @@ module.exports = {
           for (let i = 0; i < client.categories.length; i += 1) {
             const current = client.categories[i];
             const items = commands(current);
-            embed.addField(`**${current.toUpperCase()} [${items.length}]**`, `> ${items.join(", ")}`);
+            embed.addFields({ name: `**${current.toUpperCase()} [${items.length}]**`, value: `> ${items.join(", ")}` });
           }
         } catch (e) {
           console.log(String(e.stack).red);
@@ -69,7 +69,7 @@ module.exports = {
       return message.reply({
         embeds: [new MessageEmbed()
           .setColor(ee.wrongcolor)
-          .setFooter(ee.footertext, ee.footericon)
+          .setFooter({ text: ee.footertext, iconURL: ee.footericon })
           .setTitle(`${client.allEmojis.x} ERROR | An error occurred`)
           .setDescription(`\`\`\`${e.message ? String(e.message).substr(0, 2000) : String(e).substr(0, 2000)}\`\`\``)
         ]

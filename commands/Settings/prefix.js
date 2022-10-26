@@ -28,10 +28,10 @@ module.exports = {
         return message.reply({
           embeds: [
             new MessageEmbed()
-            .setColor(ee.wrongcolor)
-            .setFooter(ee.footertext, ee.footericon)
-            .setTitle(`${client.allEmojis.x} **Please add a Prefix!**`)
-            .setDescription(`**Usage:**\n> \`${client.settings.get(guild.id, "prefix")}prefix <newPrefix>\``)
+              .setColor(ee.wrongcolor)
+              .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+              .setTitle(`${client.allEmojis.x} **Please add a Prefix!**`)
+              .setDescription(`**Usage:**\n> \`${client.settings.get(guild.id, "prefix")}prefix <newPrefix>\``)
           ],
         })
       }
@@ -41,9 +41,9 @@ module.exports = {
       return message.reply({
         embeds: [
           new MessageEmbed()
-          .setColor(ee.color)
-          .setFooter(ee.footertext, ee.footericon)
-          .setTitle(`${client.allEmojis.check_mark} **The new Prefix is now: \`${newPrefix}\`**`)
+            .setColor(ee.color)
+            .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+            .setTitle(`${client.allEmojis.check_mark} **The new Prefix is now: \`${newPrefix}\`**`)
         ],
       })
     } catch (e) {

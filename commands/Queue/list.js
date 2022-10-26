@@ -52,7 +52,7 @@ module.exports = {
 				return message.reply({
 					embeds: [new MessageEmbed()
 						.setColor(ee.wrongcolor)
-						.setFooter(ee.footertext, ee.footericon)
+						.setFooter({ text: ee.footertext, iconURL: ee.footericon })
 						.setTitle(`${client.allEmojis.x} Join __my__ Voice Channel!`)
 						.setDescription(`<#${guild.me.voice.channel.id}>`)
 					],
@@ -113,9 +113,9 @@ module.exports = {
 				client.on('interactionCreate', (i) => {
 					if (!i.isSelectMenu()) return;
 					if (i.customId === "QUEUEPAGES" && i.applicationId == client.user.id) {
-						i.reply({
+						i.update({
 							embeds: pages[Number(i.values[0])],
-						}).catch(e => {})
+						}).catch(e => { })
 					}
 				});
 			} catch (e) {
@@ -124,7 +124,7 @@ module.exports = {
 					content: `${client.allEmojis.x} | Error: `,
 					embeds: [
 						new MessageEmbed().setColor(ee.wrongcolor)
-						.setDescription(`\`\`\`${e}\`\`\``)
+							.setDescription(`\`\`\`${e}\`\`\``)
 					],
 
 				})

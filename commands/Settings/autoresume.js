@@ -29,9 +29,9 @@ module.exports = {
       return message.reply({
         embeds: [
           new MessageEmbed()
-          .setColor(ee.color)
-          .setFooter(ee.footertext, ee.footericon)
-          .setTitle(`${client.allEmojis.check_mark} **The Autoresume got __\`${client.settings.get(guild.id, "autoresume") ? "Enabled" : "Disabled"}\`__!**`)
+            .setColor(ee.color)
+            .setFooter({ text: ee.footertext, iconURL: ee.footericon })
+            .setTitle(`${client.allEmojis.check_mark} **The Autoresume got __\`${client.settings.get(guild.id, "autoresume") ? "Enabled" : "Disabled"}\`__!**`)
         ],
       })
     } catch (e) {
