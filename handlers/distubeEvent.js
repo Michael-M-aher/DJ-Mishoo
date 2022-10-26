@@ -845,7 +845,7 @@ module.exports = (client) => {
                 songname = song[1].split(' (')[0] + ' ' + song[0]
               }
               const searches = await Client.songs.search(songname);
-              if (!searches[0]) return message.reply({
+              if (!searches[0]) return i.reply({
                 content: `${client.allEmojis.x} **No Lyrics Found!** :cry:`,
               });
               await searches[0].lyrics().then(
@@ -853,7 +853,7 @@ module.exports = (client) => {
                   embeds = lyricsEmbed(lyrics, newQueue.songs[0]);
                 }).catch(e => {
                   console.log(e)
-                  return message.reply({
+                  return i.reply({
                     content: `${client.allEmojis.x} **No Lyrics Found!** :cry:\n${String(e).substr(0, 1800)}`,
                   });
                 })
