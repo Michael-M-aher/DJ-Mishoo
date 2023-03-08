@@ -117,23 +117,6 @@ client.autoresume = new Enmap({ name: "autoresume", dataDir: "./databases/infos"
 //Start the Bot
 client.login(process.env.tokens || config.token)
 
-const player = new Player(client);
-
-player.on('connectionCreate', (queue) => {
-    queue.connection.voiceConnection.on('stateChange', (oldState, newState) => {
-      const oldNetworking = Reflect.get(oldState, 'networking');
-      const newNetworking = Reflect.get(newState, 'networking');
-
-      const networkStateChangeHandler = (oldNetworkState, newNetworkState) => {
-        const newUdp = Reflect.get(newNetworkState, 'udp');
-        clearInterval(newUdp?.keepAliveInterval);
-      }
-
-      oldNetworking?.off('stateChange', networkStateChangeHandler);
-      newNetworking?.on('stateChange', networkStateChangeHandler);
-    });
-});
-
 
 /**
  * @LOAD_THE_DASHBOARD - Loading the Dashbaord Module with the BotClient into it!
