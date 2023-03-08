@@ -120,7 +120,14 @@ client.login(process.env.tokens || config.token)
 
 
 
-
+const networkStateChangeHandler = (oldNetworkState, newNetworkState) => {
+  const newUdp = Reflect.get(newNetworkState, 'udp');
+  clearInterval(newUdp?.keepAliveInterval);
+}
+voice.on('stateChange', (oldState, newState) => {
+  Reflect.get(oldState, 'networking')?.off('stateChange', networkStateChangeHandler);
+  Reflect.get(newState, 'networking')?.on('stateChange', networkStateChangeHandler);
+});
 
 
 
