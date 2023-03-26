@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Collection } = require('discord.js')
+const { Client, GatewayIntentBits, Intents, Collection } = require('discord.js')
 const config = require(`./botconfig/config.json`);
 const settings = require(`./botconfig/settings.json`);
 const filters = require(`./botconfig/filters.json`);
@@ -22,9 +22,12 @@ const client = new Client({
   failIfNotExists: false,
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
   intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildVoiceStates,
+    // GatewayIntentBits.Guilds,
+    // GatewayIntentBits.GuildMessages,
+    // GatewayIntentBits.GuildVoiceStates,
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_VOICE_STATES,
   ],
   presence: {
     activity: {
