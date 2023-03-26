@@ -22,9 +22,6 @@ const client = new Client({
   failIfNotExists: false,
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
   intents: [
-    // GatewayIntentBits.Guilds,
-    // GatewayIntentBits.GuildMessages,
-    // GatewayIntentBits.GuildVoiceStates,
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
     Intents.FLAGS.GUILD_VOICE_STATES,
