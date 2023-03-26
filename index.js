@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { Client, GatewayIntentBits, Collection } = require('discord.js')
 const config = require(`./botconfig/config.json`);
 const settings = require(`./botconfig/settings.json`);
 const filters = require(`./botconfig/filters.json`);
@@ -9,8 +9,7 @@ const ffmpeg = require("ffmpeg-static");
 const voice = require("@discordjs/voice");
 const DisTube = require("distube").default;
 const { YtDlpPlugin } = require("@distube/yt-dlp");
-const https = require('https-proxy-agent');
-const client = new Discord.Client({
+const client = new Client({
   fetchAllMembers: false,
   //restTimeOffset: 0,
   //restWsBridgetimeout: 100,
@@ -23,21 +22,9 @@ const client = new Discord.Client({
   failIfNotExists: false,
   partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
   intents: [
-    Discord.Intents.FLAGS.GUILDS,
-    //Discord.Intents.FLAGS.GUILD_MEMBERS,
-    Discord.Intents.FLAGS.GUILD_MESSAGES,
-    Discord.Intents.FLAGS.GUILD_VOICE_STATES,
-    //Discord.Intents.FLAGS.GUILD_BANS,
-    //Discord.Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
-    //Discord.Intents.FLAGS.GUILD_INTEGRATIONS,
-    //Discord.Intents.FLAGS.GUILD_WEBHOOKS,
-    //Discord.Intents.FLAGS.GUILD_INVITES,
-    //Discord.Intents.FLAGS.GUILD_PRESENCES,
-    //Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-    //Discord.Intents.FLAGS.GUILD_MESSAGE_TYPING,
-    //Discord.Intents.FLAGS.DIRECT_MESSAGES,
-    //Discord.Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-    //Discord.Intents.FLAGS.DIRECT_MESSAGE_TYPING
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildVoiceStates,
   ],
   presence: {
     activity: {
@@ -49,8 +36,6 @@ const client = new Discord.Client({
 });
 
 
-const proxy = 'http://123.123.123.123:8080';
-const agent = https(proxy);
 const { SpotifyPlugin } = require("@distube/spotify");
 const { SoundCloudPlugin } = require("@distube/soundcloud");
 let spotifyoptions = {
@@ -76,16 +61,12 @@ client.distube = new DisTube(client, {
   nsfw: false, //Set it to false if u want to disable nsfw songs
   emptyCooldown: 25,
   ytdlOptions: {
-    requestOptions: {
-      agent
-    },
     highWaterMark: 1024 * 1024 * 64,
     quality: "highestaudio",
     format: "audioonly",
     liveBuffer: 60000,
     dlChunkSize: 1024 * 1024 * 4,
   },
-  youtubeDL: false,
   customFilters: filters,
   plugins: [
     new YtDlpPlugin({ update: true }),
@@ -94,10 +75,10 @@ client.distube = new DisTube(client, {
   ]
 })
 //Define some Global Collections
-client.commands = new Discord.Collection();
-client.cooldowns = new Discord.Collection();
-client.slashCommands = new Discord.Collection();
-client.aliases = new Discord.Collection();
+client.commands = new Collection();
+client.cooldowns = new Collection();
+client.slashCommands = new Collection();
+client.aliases = new Collection();
 client.categories = require("fs").readdirSync(`./commands`);
 client.allEmojis = require("./botconfig/emojis.json");
 client.maps = new Map();
