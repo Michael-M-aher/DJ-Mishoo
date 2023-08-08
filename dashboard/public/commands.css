@@ -49,7 +49,8 @@ section {
 }
 
 .accordion-button {
-  color: white;
+  color: #9fadbd;
+  background-color: #151f2e;
 }
 
 .accordion-button:not(.collapsed) {
@@ -57,14 +58,14 @@ section {
   background-color: #5663F7;
 }
 
-/* .accordion-button:not(.collapsed)::after {
+.accordion-button:not(.collapsed)::after {
   background-image: url(https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-512.png);
   transform: rotate(180deg);
   filter: invert(100%)
 }
 .accordion-button::after {
    background-image: url(https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-up-01-512.png);
-} */
+}
 
 .accordion-button:focus {
   z-index: 0;

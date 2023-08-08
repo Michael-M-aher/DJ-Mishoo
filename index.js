@@ -60,6 +60,7 @@ client.distube = new DisTube(client, {
   youtubeCookie: process.env.youtubeCookie || config.youtubeCookie,     //Comment this line if you dont want to use a youtube Cookie 
   nsfw: false, //Set it to false if u want to disable nsfw songs
   emptyCooldown: 25,
+  youtubeDL: false,
   ytdlOptions: {
     highWaterMark: 1024 * 1024 * 64,
     quality: "highestaudio",

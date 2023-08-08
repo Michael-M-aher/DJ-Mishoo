@@ -23,8 +23,7 @@ module.exports = client => {
   const settings = require("./settings.json");
   // We instantiate express app and the session store.
   const app = express();
-  const port = 3000 || 8000 || 5500;
-  const httpApp = express();
+  const port = 3000;
   const session = require(`express-session`);
   const MemoryStore = require(`memorystore`)(session);
 
@@ -72,6 +71,9 @@ module.exports = client => {
   app.use(express.urlencoded({
     extended: true
   }));
+
+  app.use(express.static(path.join(__dirname, '../node_modules/bootstrap/dist/css')))
+  app.use(express.static(path.join(__dirname, '../node_modules/bootstrap/dist/js')))
 
   //LOAD THE ASSETS
   app.use(express.static(path.join(__dirname, './public')));
