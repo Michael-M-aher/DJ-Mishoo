@@ -183,6 +183,10 @@ form.d-flex button:hover {
     background: #23272A;
 }
 
+.card-img-overlay {
+    border-radius: 0;
+}
+
 
 
 
