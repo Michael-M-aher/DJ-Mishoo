@@ -37,19 +37,19 @@ function check_if_dj(client, member, song) {
   //if no message added return
   if (!client) return false;
   //get the adminroles
-  var roleid = client.settings.get(member.guild.id, `djroles`)
+  const roleid = client.settings.get(member.guild.id, `djroles`)
   //if no dj roles return false, so that it continues
   if (String(roleid) == "") return false;
 
   //define variables
-  var isdj = false;
+  let isdj = false;
 
   //loop through the roles
-  for (let i = 0; i < roleid.length; i++) {
+  for (const roleId of roleid) {
     //if the role does not exist, then skip this current loop run
-    if (!member.guild.roles.cache.get(roleid[i])) continue;
+    if (!member.guild.roles.cache.get(roleId)) continue;
     //if he has role set var to true
-    if (member.roles.cache.has(roleid[i])) isdj = true;
+    if (member.roles.cache.has(roleId)) isdj = true;
     //add the role to the string
   }
   //if no dj and not an admin, return the string
@@ -145,8 +145,8 @@ function replacedefaultmessages(text, o = {}) {
  */
 
 function onCoolDown(message, command) {
-  if (!message || !message.client) throw "No Message with a valid DiscordClient granted as First Parameter";
-  if (!command || !command.name) throw "No Command with a valid Name granted as Second Parameter";
+  if (!message?.client) throw new Error("No Message with a valid DiscordClient granted as First Parameter");
+  if (!command?.name) throw new Error("No Command with a valid Name granted as Second Parameter");
   const client = message.client;
   if (!client.cooldowns.has(command.name)) { //if its not in the cooldown, set it too there
     client.cooldowns.set(command.name, new Collection());
@@ -228,9 +228,9 @@ function isValidURL(string) {
  * @returns BOOLEAN/DISCORDUSER
  */
 function GetUser(message, arg) {
-  var errormessage = ":x: I failed finding that User...";
+  const errormessage = ":x: I failed finding that User...";
   return new Promise(async (resolve, reject) => {
-    var args = arg, client = message.client;
+    let args = arg, client = message.client;
     if (!client || !message) return reject("CLIENT IS NOT DEFINED")
     if (!args || args == null || args == undefined) args = message.content.trim().split(/ +/).slice(1);
     let user = message.mentions.users.first();
@@ -301,9 +301,9 @@ function GetRole(message, arg) {
  * @returns BOOLEAN/DISCORDUSER
  */
 function GetGlobalUser(message, arg) {
-  var errormessage = ":x: I failed finding that User...";
+  const errormessage = ":x: I failed finding that User...";
   return new Promise(async (resolve, reject) => {
-    var args = arg, client = message.client;
+    let args = arg, client = message.client;
     if (!client || !message) return reject("CLIENT IS NOT DEFINED")
     if (!args || args == null || args == undefined) args = message.content.trim().split(/ +/).slice(1);
     let user = message.mentions.users.first();
@@ -314,9 +314,9 @@ function GetGlobalUser(message, arg) {
     }
     else if (!user && args[0]) {
       let alluser = [], allmembers = [];
-      var guilds = Array.from(client.guilds.cache.values())
+      const guilds = Array.from(client.guilds.cache.values())
       for (const g of guilds) {
-        var members = Array.from(g.members.cache.values());
+        const members = Array.from(g.members.cache.values());
         for (const m of members) { alluser.push(m.user.tag); allmembers.push(m); }
       }
       user = alluser.find(user => user.startsWith(args.join(" ").toLowerCase()))
@@ -344,7 +344,7 @@ function GetGlobalUser(message, arg) {
  */
 function shuffle(array) {
   try {
-    var j, x, i;
+    let j, x, i;
     for (i = array.length - 1; i > 0; i--) {
       j = Math.floor(Math.random() * (i + 1));
       x = array[i];
@@ -515,7 +515,7 @@ function getRandomNum(min, max) {
  */
 function createBar(total, current, size = 25, line = "▬", slider = "🔷") {
   try {
-    if (!total) throw "MISSING MAX TIME";
+    if (!total) throw new Error("MISSING MAX TIME");
     if (!current) return `**[${slider}${line.repeat(size - 1)}]**`;
     let bar = current > total
       ? [line.repeat(size / 2 * 2), (current / total) * 100]
@@ -538,7 +538,7 @@ function createBar(total, current, size = 25, line = "▬", slider = "🔷") {
  */
 function format(millis) {
   try {
-    var h = Math.floor(millis / 3600000),
+    const h = Math.floor(millis / 3600000),
       m = Math.floor(millis / 60000),
       s = ((millis % 60000) / 1000).toFixed(0);
     if (h < 1) return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s + " | " + (Math.floor(millis / 1000)) + " Seconds";
@@ -599,8 +599,8 @@ function nFormatter(num, digits = 2) {
     { value: 1e15, symbol: "P" },
     { value: 1e18, symbol: "E" }
   ];
-  const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-  var item = lookup.slice().reverse().find(function (item) {
+  const rx = /\.0+$|(\.\d*[1-9])0+$/;
+  const item = lookup.slice().reverse().find(function (item) {
     return num >= item.value;
   });
   return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
@@ -616,7 +616,6 @@ function nFormatter(num, digits = 2) {
  */
 const { MessageButton, MessageActionRow } = require('discord.js')
 async function swap_pages(client, message, description, TITLE) {
-  let prefix = config.prefix;
   let cmduser = message.author;
 
   let currentPage = 0;
@@ -636,7 +635,6 @@ async function swap_pages(client, message, description, TITLE) {
           .setFooter({ text: ee.footertext, iconURL: ee.footericon })
         embeds.push(embed);
       }
-      embeds;
     } catch { }
   } else {
     try {
@@ -651,7 +649,6 @@ async function swap_pages(client, message, description, TITLE) {
           .setFooter({ text: ee.footertext, iconURL: ee.footericon })
         embeds.push(embed);
       }
-      embeds;
     } catch { }
   }
   if (embeds.length === 0) return message.channel.send({
@@ -724,7 +721,6 @@ async function swap_pages2(client, message, embeds) {
   let button_home = new MessageButton().setStyle('DANGER').setCustomId('2').setEmoji("🏠").setLabel("Home")
   let button_forward = new MessageButton().setStyle('SUCCESS').setCustomId('3').setEmoji('832598861813776394').setLabel("Forward")
   const allbuttons = [new MessageActionRow().addComponents([button_back, button_home, button_forward])]
-  let prefix = client.settings.get(message.guild.id, "prefix");
   //Send message with buttons
   let swapmsg = await message.channel.send({
     content: `***Click on the __Buttons__ to swap the Pages***`,
