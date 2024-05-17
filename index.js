@@ -58,7 +58,7 @@ client.distube = new DisTube(client, {
   emitAddSongWhenCreatingQueue: false,
   //emitAddListWhenCreatingQueue: false,
   searchSongs: 0,
-  // youtubeCookie: process.env.youtubeCookie || config.youtubeCookie,
+  youtubeCookie: process.env.youtubeCookie || config.youtubeCookie,
   nsfw: true, //Set it to false if u want to disable nsfw songs
   emptyCooldown: 25,
   ytdlOptions: {
