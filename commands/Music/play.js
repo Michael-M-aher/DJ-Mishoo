@@ -105,26 +105,6 @@ module.exports = {
 
 				})
 			}
-			setTimeout(async () => {
-				if (!queue.textChannel.guild.me.voice.channelId) {
-				  return clearTimeout();
-				}
-				let queue_music = await client.distube.getQueue(queue.voiceChannel);
-		
-				if (queue_music !== undefined && queue_music.playing) {
-				  clearTimeout();
-				} else if (queue_music == undefined || queue_music.songs.length === 0) {
-				  queue.textChannel
-					.send({
-					  embeds: [
-						new MessageEmbed()
-						  .setDescription("Finished!")
-					  ],
-					})
-					.catch(() => { })
-				  queue.stop(client.voice.channel)
-				}
-			  }, 120000)
 		} catch (e) {
 			console.log(String(e.stack).bgRed)
 		}
