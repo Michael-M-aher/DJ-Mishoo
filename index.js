@@ -8,6 +8,7 @@ const libsodium = require("libsodium-wrappers");
 const ffmpeg = require("ffmpeg-static");
 const voice = require("@discordjs/voice");
 const DisTube = require("distube").default;
+const envvv = require("dotenv").config();
 const { YtDlpPlugin } = require("@distube/yt-dlp");
 const client = new Client({
   fetchAllMembers: false,
@@ -38,6 +39,7 @@ const client = new Client({
 
 const { SpotifyPlugin } = require("@distube/spotify");
 const { SoundCloudPlugin } = require("@distube/soundcloud");
+const { env } = require('process');
 let spotifyoptions = {
   parallel: true,
   emitEventsAfterFetching: true,

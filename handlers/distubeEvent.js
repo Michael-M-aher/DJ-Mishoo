@@ -1038,38 +1038,51 @@ module.exports = (client) => {
           }, 3000)
         }
       })
-      .on(`initQueue`, queue => {
+      .on('initQueue', queue => {
         try {
           if (PlayerMap.has(`deleted-${queue.id}`)) {
-            PlayerMap.delete(`deleted-${queue.id}`)
+            PlayerMap.delete(`deleted-${queue.id}`);
           }
-          let data = client.settings.get(queue.id)
-          queue.autoplay = Boolean(data.defaultautoplay);
-          queue.volume = Number(data.defaultvolume);
-          queue.setFilter(data.defaultfilters);
+
+          let data = client.settings.get(queue.id);
+          if (data) {
+            queue.autoplay = Boolean(data.defaultautoplay);
+            queue.volume = Number(data.defaultvolume);
+            queue.setFilter(data.defaultfilters);
+          } else {
+            console.log(`Settings not found for queue id ${queue.id}`);
+          }
 
           /**
            * Check-Relevant-Messages inside of the Music System Request Channel
            */
           var checkrelevantinterval = setInterval(async () => {
-            if (client.settings.get(queue.id, `music.channel`) && client.settings.get(queue.id, `music.channel`).length > 5) {
-              console.log(`Music System - Relevant Checker`.brightCyan + ` - Checkingfor unrelevant Messages`)
-              let messageId = client.settings.get(queue.id, `music.message`);
-              //try to get the guild
+            let musicChannelId = client.settings.get(queue.id, 'music.channel');
+            if (musicChannelId && musicChannelId.length > 5) {
+              console.log(`Music System - Relevant Checker`.brightCyan + ` - Checking for unrelevant Messages`);
+              let messageId = client.settings.get(queue.id, 'music.message');
               let guild = client.guilds.cache.get(queue.id);
-              if (!guild) return console.log(`Music System - Relevant Checker`.brightCyan + ` - Guild not found!`)
-              //try to get the channel
-              let channel = guild.channels.cache.get(client.settings.get(queue.id, `music.channel`));
-              if (!channel) channel = await guild.channels.fetch(client.settings.get(queue.id, `music.channel`)).catch(() => { }) || false
-              if (!channel) return console.log(`Music System - Relevant Checker`.brightCyan + ` - Channel not found!`)
-              if (!channel.permissionsFor(channel.guild.me).has(Permissions.FLAGS.MANAGE_MESSAGES)) return console.log(`Music System - Relevant Checker`.brightCyan + ` - Missing Permissions`)
-              //try to get the channel
-              let messages = await channel.messages.fetch();
-              if (messages.filter(m => m.id != messageId).size > 0) {
-                channel.bulkDelete(messages.filter(m => m.id != messageId)).catch(() => { })
-                  .then(messages => console.log(`Music System - Relevant Checker`.brightCyan + ` - Bulk deleted ${messages.size} messages`))
-              } else {
-                console.log(`Music System - Relevant Checker`.brightCyan + ` - No Relevant Messages`)
+              if (!guild) {
+                return console.log(`Music System - Relevant Checker`.brightCyan + ` - Guild not found!`);
+              }
+
+              let channel = guild.channels.cache.get(musicChannelId) || await guild.channels.fetch(musicChannelId).catch(() => false);
+              if (!channel) {
+                return console.log(`Music System - Relevant Checker`.brightCyan + ` - Channel not found!`);
+              }
+              if (!channel.permissionsFor(channel.guild.me).has(Permissions.FLAGS.MANAGE_MESSAGES)) {
+                return console.log(`Music System - Relevant Checker`.brightCyan + ` - Missing Permissions`);
+              }
+
+              let messages = await channel.messages.fetch().catch(() => null);
+              if (messages) {
+                let messagesToDelete = messages.filter(m => m.id != messageId);
+                if (messagesToDelete.size > 0) {
+                  channel.bulkDelete(messagesToDelete).catch(() => { })
+                    .then(deletedMessages => console.log(`Music System - Relevant Checker`.brightCyan + ` - Bulk deleted ${deletedMessages.size} messages`));
+                } else {
+                  console.log(`Music System - Relevant Checker`.brightCyan + ` - No Relevant Messages`);
+                }
               }
             }
           }, settings["music-system-relevant-checker-delay"] || 60000);
@@ -1080,58 +1093,46 @@ module.exports = (client) => {
            */
           var autoresumeinterval = setInterval(async () => {
             var newQueue = client.distube.getQueue(queue.id);
-            if (newQueue && newQueue.id && client.settings.get(newQueue.id, `autoresume`)) {
-              const makeTrackData = track => {
-                return {
-                  memberId: track.member.id,
-                  source: track.source,
-                  duration: track.duration,
-                  formattedDuration: track.formattedDuration,
-                  id: track.id,
-                  isLive: track.isLive,
-                  name: track.name,
-                  thumbnail: track.thumbnail,
-                  type: "video",
-                  uploader: track.uploader,
-                  url: track.url,
-                  views: track.views,
-                }
-              }
+            if (newQueue && newQueue.id && client.settings.get(newQueue.id, 'autoresume')) {
+              const makeTrackData = track => ({
+                memberId: track.member.id,
+                source: track.source,
+                duration: track.duration,
+                formattedDuration: track.formattedDuration,
+                id: track.id,
+                isLive: track.isLive,
+                name: track.name,
+                thumbnail: track.thumbnail,
+                type: "video",
+                uploader: track.uploader,
+                url: track.url,
+                views: track.views,
+              });
+
               client.autoresume.ensure(newQueue.id, {
                 guild: newQueue.id,
                 voiceChannel: newQueue.voiceChannel ? newQueue.voiceChannel.id : null,
                 textChannel: newQueue.textChannel ? newQueue.textChannel.id : null,
-                songs: newQueue.songs && newQueue.songs.length > 0 ? [...newQueue.songs].map(track => makeTrackData(track)) : null,
+                songs: newQueue.songs && newQueue.songs.length > 0 ? newQueue.songs.map(track => makeTrackData(track)) : null,
                 volume: newQueue.volume,
                 repeatMode: newQueue.repeatMode,
                 playing: newQueue.playing,
                 currentTime: newQueue.currentTime,
-                filters: [...newQueue.filters].filter(Boolean),
+                filters: newQueue.filters.filter(Boolean),
                 autoplay: newQueue.autoplay,
               });
+
               let data = client.autoresume.get(newQueue.id);
-              if (data.guild != newQueue.id) client.autoresume.set(newQueue.id, newQueue.id, `guild`)
-              if (data.voiceChannel != newQueue.voiceChannel ? newQueue.voiceChannel.id : null) client.autoresume.set(newQueue.id, newQueue.voiceChannel ? newQueue.voiceChannel.id : null, `voiceChannel`)
-              if (data.textChannel != newQueue.textChannel ? newQueue.textChannel.id : null) client.autoresume.set(newQueue.id, newQueue.textChannel ? newQueue.textChannel.id : null, `textChannel`)
-
-              if (data.volume != newQueue.volume) client.autoresume.set(newQueue.id, newQueue.volume, `volume`)
-              if (data.repeatMode != newQueue.repeatMode) client.autoresume.set(newQueue.id, newQueue.repeatMode, `repeatMode`)
-              if (data.playing != newQueue.playing) client.autoresume.set(newQueue.id, newQueue.playing, `playing`)
-              if (data.currentTime != newQueue.currentTime) client.autoresume.set(newQueue.id, newQueue.currentTime, `currentTime`)
-              if (!arraysEqual([...data.filters].filter(Boolean), [...newQueue.filters].filter(Boolean))) client.autoresume.set(newQueue.id, [...newQueue.filters].filter(Boolean), `filters`)
-              if (data.autoplay != newQueue.autoplay) client.autoresume.set(newQueue.id, newQueue.autoplay, `autoplay`)
-              if (newQueue.songs && !arraysEqual(data.songs, [...newQueue.songs])) client.autoresume.set(newQueue.id, [...newQueue.songs].map(track => makeTrackData(track)), `songs`)
-
-              function arraysEqual(a, b) {
-                if (a === b) return true;
-                if (a == null || b == null) return false;
-                if (a.length !== b.length) return false;
-
-                for (var i = 0; i < a.length; ++i) {
-                  if (a[i] !== b[i]) return false;
-                }
-                return true;
-              }
+              if (data.guild !== newQueue.id) client.autoresume.set(newQueue.id, newQueue.id, 'guild');
+              if (data.voiceChannel !== (newQueue.voiceChannel ? newQueue.voiceChannel.id : null)) client.autoresume.set(newQueue.id, newQueue.voiceChannel ? newQueue.voiceChannel.id : null, 'voiceChannel');
+              if (data.textChannel !== (newQueue.textChannel ? newQueue.textChannel.id : null)) client.autoresume.set(newQueue.id, newQueue.textChannel ? newQueue.textChannel.id : null, 'textChannel');
+              if (data.volume !== newQueue.volume) client.autoresume.set(newQueue.id, newQueue.volume, 'volume');
+              if (data.repeatMode !== newQueue.repeatMode) client.autoresume.set(newQueue.id, newQueue.repeatMode, 'repeatMode');
+              if (data.playing !== newQueue.playing) client.autoresume.set(newQueue.id, newQueue.playing, 'playing');
+              if (data.currentTime !== newQueue.currentTime) client.autoresume.set(newQueue.id, newQueue.currentTime, 'currentTime');
+              if (!arraysEqual(data.filters.filter(Boolean), newQueue.filters.filter(Boolean))) client.autoresume.set(newQueue.id, newQueue.filters.filter(Boolean), 'filters');
+              if (data.autoplay !== newQueue.autoplay) client.autoresume.set(newQueue.id, newQueue.autoplay, 'autoplay');
+              if (newQueue.songs && !arraysEqual(data.songs, newQueue.songs)) client.autoresume.set(newQueue.id, newQueue.songs.map(track => makeTrackData(track)), 'songs');
             }
           }, settings["auto-resume-save-cooldown"] || 5000);
           playerintervals.set(`autoresumeinterval-${queue.id}`, autoresumeinterval);
@@ -1139,38 +1140,57 @@ module.exports = (client) => {
           /**
            * Music System Edit Embeds
            */
-
           var musicsystemeditinterval = setInterval(async () => {
-            if (client.settings.get(queue.id, `music.channel`) && client.settings.get(queue.id, `music.channel`).length > 5) {
-              let messageId = client.settings.get(queue.id, `music.message`);
-              //try to get the guild
+            let musicChannelId = client.settings.get(queue.id, 'music.channel');
+            if (musicChannelId && musicChannelId.length > 5) {
+              let messageId = client.settings.get(queue.id, 'music.message');
               let guild = client.guilds.cache.get(queue.id);
-              if (!guild) return console.log(`Music System Edit Embeds`.brightMagenta + ` - Music System - Guild not found!`)
-              //try to get the channel
-              let channel = guild.channels.cache.get(client.settings.get(queue.id, `music.channel`));
-              if (!channel) channel = await guild.channels.fetch(client.settings.get(queue.id, `music.channel`)).catch(() => { }) || false
-              if (!channel) return console.log(`Music System Edit Embeds`.brightMagenta + ` - Music System - Channel not found!`)
-              if (!channel.permissionsFor(channel.guild.me).has(Permissions.FLAGS.SEND_MESSAGES)) return console.log(`Music System - Missing Permissions`)
-              //try to get the channel
-              let message = channel.messages.cache.get(messageId);
-              if (!message) message = await channel.messages.fetch(messageId).catch(() => { }) || false;
-              if (!message) return console.log(`Music System Edit Embeds`.brightMagenta + ` - Music System - Message not found!`)
-              if (!message.editedTimestamp) return console.log(`Music System Edit Embeds`.brightCyan + ` - Never Edited before!`)
+              if (!guild) {
+                return console.log(`Music System Edit Embeds`.brightMagenta + ` - Music System - Guild not found!`);
+              }
+
+              let channel = guild.channels.cache.get(musicChannelId) || await guild.channels.fetch(musicChannelId).catch(() => false);
+              if (!channel) {
+                return console.log(`Music System Edit Embeds`.brightMagenta + ` - Music System - Channel not found!`);
+              }
+              if (!channel.permissionsFor(channel.guild.me).has(Permissions.FLAGS.SEND_MESSAGES)) {
+                return console.log(`Music System - Missing Permissions`);
+              }
+
+              let message = channel.messages.cache.get(messageId) || await channel.messages.fetch(messageId).catch(() => false);
+              if (!message) {
+                return console.log(`Music System Edit Embeds`.brightMagenta + ` - Music System - Message not found!`);
+              }
+              if (!message.editedTimestamp) {
+                return console.log(`Music System Edit Embeds`.brightCyan + ` - Never Edited before!`);
+              }
               if (Date.now() - message.editedTimestamp > (settings["music-request-edit-delay"] || 7000) - 100) {
-                var data = generateQueueEmbed(client, queue.id)
-                message.edit(data).catch((e) => {
-                  console.log(e)
-                }).then(m => {
-                  console.log(`Music System Edit Embeds`.brightMagenta + ` - Edited the Music System Embed, because no other edit in the last ${Math.floor((settings["music-request-edit-delay"] || 7000) / 1000)} Seconds!`)
-                })
+                var data = generateQueueEmbed(client, queue.id);
+                message.edit(data).catch(e => console.log(e))
+                  .then(m => console.log(`Music System Edit Embeds`.brightMagenta + ` - Edited the Music System Embed, because no other edit in the last ${Math.floor((settings["music-request-edit-delay"] || 7000) / 1000)} Seconds!`));
               }
             }
           }, settings["music-request-edit-delay"] || 7000);
           playerintervals.set(`musicsystemeditinterval-${queue.id}`, musicsystemeditinterval);
+
+          /**
+           * Helper function to compare arrays
+           */
+          function arraysEqual(a, b) {
+            if (a === b) return true;
+            if (a == null || b == null) return false;
+            if (a.length !== b.length) return false;
+
+            for (var i = 0; i < a.length; ++i) {
+              if (a[i] !== b[i]) return false;
+            }
+            return true;
+          }
         } catch (error) {
-          console.error(error)
+          console.error(error);
         }
       });
+
   } catch (e) {
     console.log(String(e.stack).bgRed)
   }
@@ -1908,7 +1928,7 @@ module.exports = (client) => {
       .addFields({ name: `🔊 Volume:`, value: `>>> \`${newQueue.volume} %\``, inline: true })
       .addFields({ name: `♾ Loop:`, value: `>>> ${newQueue.repeatMode ? newQueue.repeatMode === 2 ? `${client.allEmojis.check_mark}\` Queue\`` : `${client.allEmojis.check_mark} \`Song\`` : `${client.allEmojis.x}`}`, inline: true })
       .addFields({ name: `↪️ Autoplay:`, value: `>>> ${newQueue.autoplay ? `${client.allEmojis.check_mark}` : `${client.allEmojis.x}`}`, inline: true })
-      .addFields({ name: `❔ Download Song:`, value: `>>> [\`Click here\`](${newTrack.streamURL})`, inline: true })
+      // .addFields({ name: `❔ Download Song:`, value: `>>> [\`Click here\`](${newTrack.streamURL})`, inline: true })
       .addFields({ name: `❔ Filter${newQueue.filters.length > 0 ? `s` : ``}:`, value: `>>> ${newQueue.filters && newQueue.filters.length > 0 ? `${newQueue.filters.map(f => `\`${f}\``).join(`, `)}` : `${client.allEmojis.x}`}`, inline: newQueue.filters.length > 1 ? false : true })
       .addFields({ name: `🎧 DJ-Role${client.settings.get(newQueue.id, `djroles`).length > 1 ? `s` : ``}:`, value: `>>> ${djs}`, inline: client.settings.get(newQueue.id, `djroles`).length > 1 ? false : true })
       .setAuthor({ name: `${newTrack.name}`, iconURL: `https://images-ext-1.discordapp.net/external/DkPCBVBHBDJC8xHHCF2G7-rJXnTwj_qs78udThL8Cy0/%3Fv%3D1/https/cdn.discordapp.com/emojis/859459305152708630.gif`, url: newTrack.url })
