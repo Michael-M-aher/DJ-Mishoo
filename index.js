@@ -5,7 +5,6 @@ const filters = require(`./botconfig/filters.json`);
 const colors = require("colors");
 const Enmap = require("enmap");
 const libsodium = require("libsodium-wrappers");
-const ffmpeg = require("ffmpeg-static");
 const voice = require("@discordjs/voice");
 const DisTube = require("distube").default;
 const envvv = require("dotenv").config();
